@@ -31,7 +31,7 @@ class Main extends Component {
     return (
       <>
         <GlobalStyle />
-        <Header />
+
         <List />
         <Copy>
           Design by:{' '}

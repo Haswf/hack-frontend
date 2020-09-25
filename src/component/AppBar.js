@@ -86,7 +86,7 @@ function backHomePage() {
 }
 
 function ToForum() {
-    window.location.assign(`http://localhost:3000/discussion`);
+    window.location.assign(`http://localhost:3000/discussionlist`);
 }
 
 export default function PrimarySearchAppBar() {

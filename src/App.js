@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Usercenter from "./pages/Usercenter";
 import CommentExampleComment from "./pages/Discussion";
 import DiscussionList from "./pages/DiscussionList"
-import PrimarySearchAppBar from "./component/searchbar";
+import PrimarySearchAppBar from "./component/AppBar";
 
 export default function App() {
   return (
