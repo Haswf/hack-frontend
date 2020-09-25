@@ -94,7 +94,7 @@ export default function Posting() {
                         </form>
                     </div>
                     <div>
-                        <TextField required multiline rows={5} id="introduction" label="introduction" variant="outlined" className={classes.textFieldStyle} />
+                        <TextField required multiline rows={5} id="introduction" label="description" variant="outlined" className={classes.textFieldStyle} />
                     </div>
                 </div>
                 <div className={classes.divStyle}>
