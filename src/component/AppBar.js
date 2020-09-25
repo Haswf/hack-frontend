@@ -171,6 +171,16 @@ export default function PrimarySearchAppBar() {
         </Menu>
     );
 
+    function searching() {
+        if(window.sessionStorage.getItem("searching")){
+            console.log(window.sessionStorage.getItem("searching"))
+        }
+    }
+    const onChange = (event) => {
+        console.log(event.target.value);
+        window.sessionStorage.setItem("searching", event.target.value);
+    }
+
     return (
         <div className={classes.grow}>
             <AppBar position="static">
@@ -187,17 +197,25 @@ export default function PrimarySearchAppBar() {
                         PANDEMICHAT
                     </Typography>
                     <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
                         <InputBase
+                            id="Testing"
                             placeholder="Search…"
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            onChange={onChange}
                         />
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={() => searching()}
+                        >
+                            <SearchIcon />
+                        </IconButton>
                     </div>
                     <IconButton
                         edge="start"
