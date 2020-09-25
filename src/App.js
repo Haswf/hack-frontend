@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from "./component/Nav";
 import Home from "./pages/Home";
 import "./views/styles.css";
+import PatientList from "./pages/PatientList";
+import Login from "./pages/Login";
+import Usercenter from "./pages/Usercenter";
 export default function App() {
   return (
       <Router>
@@ -12,6 +15,15 @@ export default function App() {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route path="/patientList">
+               <PatientList />
+            </Route>
+              <Route path="/usercenter">
+                  <Login />
+              </Route>
+              <Route path="/login">
+                  <Usercenter />
+              </Route>
           </Switch>
         </div>
       </Router>

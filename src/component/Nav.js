@@ -13,6 +13,12 @@ export default function Nav() {
                     <NavLink exact to="/">
                         Home
                     </NavLink>
+                    <NavLink to="/patientList">
+                        Patient List
+                    </NavLink>
+                    <NavLink to="/usercenter">
+                        User center
+                    </NavLink>
                 </nav>
                 </div>
 
@@ -29,6 +35,12 @@ export default function Nav() {
             <nav id="head">
                 <NavLink exact to="/">
                     Home
+                </NavLink>
+                <NavLink to="/patientList">
+                    Patient List
+                </NavLink>
+                <NavLink to="/login">
+                    Log in
                 </NavLink>
 
             </nav>
