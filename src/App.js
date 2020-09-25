@@ -9,6 +9,7 @@ import Usercenter from "./pages/Usercenter";
 import CommentExampleComment from "./pages/Discussion";
 import DiscussionList from "./pages/DiscussionList"
 import PrimarySearchAppBar from "./component/AppBar";
+import Survey from "./component/Survey";
 
 export default function App() {
   return (
@@ -33,6 +34,9 @@ export default function App() {
               </Route>
               <Route path="/discussionlist">
                   <DiscussionList/>
+              </Route>
+              <Route path="/survey">
+                  <Survey />
               </Route>
           </Switch>
         </div>

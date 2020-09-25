@@ -16,6 +16,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import HomeIcon from '@material-ui/icons/Home';
 import ForumIcon from '@material-ui/icons/Forum';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -87,6 +88,10 @@ function backHomePage() {
 
 function ToForum() {
     window.location.assign(`http://localhost:3000/discussionlist`);
+}
+
+function survey() {
+    window.location.assign(`http://localhost:3000/survey`);
 }
 
 export default function PrimarySearchAppBar() {
@@ -185,14 +190,7 @@ export default function PrimarySearchAppBar() {
         <div className={classes.grow}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton>
+
                     <Typography className={classes.title} variant="h6" noWrap>
                         PANDEMICHAT
                     </Typography>
@@ -234,6 +232,15 @@ export default function PrimarySearchAppBar() {
                         onClick={() => ToForum()}
                     >
                         <ForumIcon />
+                    </IconButton>
+                    <IconButton
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={() => survey()}
+                    >
+                        <DescriptionIcon />
                     </IconButton>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
