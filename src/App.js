@@ -7,6 +7,7 @@ import PatientList from "./pages/PatientList";
 import Login from "./pages/Login";
 import Usercenter from "./pages/Usercenter";
 import CommentExampleComment from "./pages/Discussion";
+import DiscussionList from "./pages/DiscussionList"
 export default function App() {
   return (
       <Router>
@@ -27,6 +28,9 @@ export default function App() {
               </Route>
               <Route path="/discussion">
                   <CommentExampleComment />
+              </Route>
+              <Route path="/discussionlist">
+                  <DiscussionList/>
               </Route>
           </Switch>
         </div>

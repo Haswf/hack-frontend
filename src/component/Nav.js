@@ -45,6 +45,9 @@ export default function Nav() {
                 <NavLink to="/discussion">
                     Discussion
                 </NavLink>
+                <NavLink to="/discussionlist">
+                    Discussion
+                </NavLink>
 
             </nav>
             </div>
