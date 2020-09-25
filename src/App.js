@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Nav from "./component/Nav";
+
 import Home from "./pages/Home";
 import "./views/styles.css";
 import PatientList from "./pages/PatientList";
