@@ -1,0 +1,68 @@
+#htwo{
+    margin-top: 100px;
+    margin-bottom: 0;
+}
+
+#tryy {
+    position: relative;
+    margin-top: 2%;
+    color: #d5e1e6;
+}
+
+
+
+
+.user-expand {
+    display: none;
+    background-color: transparent;
+
+
+}
+
+.user-expand.show {
+    display: block;
+}
+
+#reset{
+    position: absolute;
+    margin-left: 88%;
+    color: #cbd4e6;
+}
+
+#tolist{
+    position: absolute;
+    margin-left: 70%;
+    color: #cbd4e6;
+}
+
+
+
+
+.posts{
+    height: 500px;
+}
+
+#reset_box{
+    position: relative;
+    margin-top: 10%;
+    height: 200px;
+}
+#reset_but{
+
+    margin-top: 5%;
+}
+#reset_info{
+    text-align: center;
+}
+
+.fa-user{
+    font-size: 200%;
+}
+
+/*background-color: gradient(315deg, #63a4ff 0%, #83eaf1 74%);*/
+
+.user_home_page{
+    margin-top: -7%;
+    background: url(../pictures/old-people.jpg);
+    height: 250px;
+}
