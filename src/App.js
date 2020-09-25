@@ -6,6 +6,7 @@ import "./views/styles.css";
 import PatientList from "./pages/PatientList";
 import Login from "./pages/Login";
 import Usercenter from "./pages/Usercenter";
+import CommentExampleComment from "./pages/Discussion";
 export default function App() {
   return (
       <Router>
@@ -23,6 +24,9 @@ export default function App() {
               </Route>
               <Route path="/login">
                   <Usercenter />
+              </Route>
+              <Route path="/discussion">
+                  <CommentExampleComment />
               </Route>
           </Switch>
         </div>

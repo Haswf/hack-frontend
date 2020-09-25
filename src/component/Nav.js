@@ -42,6 +42,9 @@ export default function Nav() {
                 <NavLink to="/login">
                     Log in
                 </NavLink>
+                <NavLink to="/discussion">
+                    Discussion
+                </NavLink>
 
             </nav>
             </div>
