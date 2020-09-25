@@ -78,21 +78,7 @@ export default function Posting() {
                             </Select>
                         </FormControl>
                     </div>
-                    <div>
-                        <form className={classes.container} noValidate>
-                            <TextField
-                                id="age"
-                                label="Birthday"
-                                type="date"
-                                defaultValue="2000-05-24"
-                                className={classes.textFieldStyle}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                variant="outlined"
-                            />
-                        </form>
-                    </div>
+
                     <div>
                         <TextField required multiline rows={5} id="introduction" label="description" variant="outlined" className={classes.textFieldStyle} />
                     </div>
@@ -119,9 +105,7 @@ function onSubmit(symptom) {
     console.log(title);
     // var working_experience = document.getElementById("working_experience").value;
     var introduction = document.getElementById("introduction").value;
-    var age = document.getElementById("age").value;
-    age = age.toString();
-    console.log(age);
+
     console.log(symptom);
     // var address = document.getElementById("address").value;
     // var contact_information = document.getElementById("contact_information").value;
