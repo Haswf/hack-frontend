@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import {loginCheck, signupCheck} from "../api";
+import {loginCheck, resetPassword, signupCheck} from "../api";
 
 function Copyright() {
     return (
@@ -58,12 +58,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function sign_up() {
-    var email = document.getElementById("email_signup").value;
-    var password = document.getElementById("password_signup").value;
-    var confirmed_password = document.getElementById("confirmpassword_signup").value;
-    var username = document.getElementById("username_signup").value;;
-    signupCheck({
+function reset() {
+    var email = document.getElementById("email_reset").value;
+    var password = document.getElementById("password_reset").value;
+    var confirmed_password = document.getElementById("confirmpassword_reset").value;
+    var username = document.getElementById("username_reset").value;;
+    resetPassword({
         email,
         password,
         confirmed_password,
@@ -71,7 +71,7 @@ function sign_up() {
     });
 }
 
-export default function SignUpSide() {
+export default function ResetPasword() {
     const classes = useStyles();
 
     return (
@@ -84,7 +84,7 @@ export default function SignUpSide() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Reset Password
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
@@ -92,7 +92,7 @@ export default function SignUpSide() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email_signup"
+                            id="email_reset"
                             label="Email Address"
                             name="email"
                             autoComplete="email"
@@ -106,7 +106,7 @@ export default function SignUpSide() {
                             name="username"
                             label="username"
                             type="username"
-                            id="username_signup"
+                            id="username_reset"
                             autoComplete="username"
                         />
                         <TextField
@@ -117,7 +117,7 @@ export default function SignUpSide() {
                             name="password"
                             label="Password"
                             type="password"
-                            id="password_signup"
+                            id="password_reset"
                             autoComplete="current-password"
                         />
                         <TextField
@@ -128,7 +128,7 @@ export default function SignUpSide() {
                             name="confirmpassword"
                             label="confirm-password"
                             type="password"
-                            id="confirmpassword_signup"
+                            id="confirmpassword_reset"
                             autoComplete="confirm-password"
                         />
 
@@ -138,7 +138,7 @@ export default function SignUpSide() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={() => sign_up()}
+                            onClick={() => reset()}
                         >
                             Sign Up
                         </Button>

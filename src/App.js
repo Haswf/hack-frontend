@@ -15,6 +15,8 @@ import SignUpSide from "./pages/Signup";
 import Comments from "./component/Comments";
 import Checkout from "./component/survey/Checkout";
 import {SurveyPage} from "./component/survey/Symptom";
+import Dis from "./component/dis";
+import ResetPassword from "./pages/ResetPassword";
 
 export default function App() {
   return (
@@ -29,13 +31,16 @@ export default function App() {
                <PatientList />
             </Route>
               <Route path="/usercenter">
-                  <Login />
+                  <Usercenter />
               </Route>
               <Route path="/login">
                   <SignInSide />
               </Route>
+              <Route path="/resetpassword">
+                  <ResetPassword />
+              </Route>
               <Route path="/discussion">
-                  <CommentExampleComment />
+                  <Dis />
               </Route>
               <Route path="/discussionlist">
                   <DiscussionList/>
