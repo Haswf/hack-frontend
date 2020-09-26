@@ -3,6 +3,7 @@ import ListItem from "./ListItem";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../shared/theme";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Chips from "./Tag";
 
 const ListWrapper = styled.div`
   width: ${props => props.theme.maxWidth};
