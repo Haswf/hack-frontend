@@ -149,10 +149,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Usercenter() {
-    /*if(!window.localStorage.getItem("access_token")){
+
+    if(!window.localStorage.getItem("user") || window.localStorage.getItem("data") != '"success"'){
 
         window.location.assign("http://localhost:3000/login")
-    }*/
+    }
 
     let username;
     username = window.location.pathname;
@@ -197,7 +198,7 @@ export default function Usercenter() {
     let age;
     let image;
     /*{users.map(user => {
-        if(user.userid==="2"){
+        if(user.userid===""){
             first_name = user.first_name;
             console.log(first_name);
             console.log(user.userid);
@@ -265,21 +266,8 @@ export default function Usercenter() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
-                            <Paper className={fixedHeightPaper}>
-                                <p>Firstname: {first_name}</p>
-                                <p>Lastname:  {last_name}</p>
-                                <p>Gender:  {gender}</p>
-                                <p>Birthday:  {age}</p>
-                                <p>Introduction:  {introduction}</p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p className={classes.buttonBottom}></p>
 
-                            </Paper>
 
-                        </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={3}>
                             {/*<Paper className={fixedHeightPaperImage}>*/}
@@ -311,4 +299,5 @@ export default function Usercenter() {
 function backHomePage(){
     window.location.assign(`http://localhost:3000/`);
 }
+
 

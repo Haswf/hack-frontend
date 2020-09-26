@@ -35,50 +35,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
     const classes = useStyles();
-
+    const symptoms = JSON.parse(sessionStorage.getItem("symptom_value"))
+    console.log(symptoms);
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
-                Order summary
+                Symptoms
             </Typography>
             <List disablePadding>
-                {products.map((product) => (
-                    <ListItem className={classes.listItem} key={product.name}>
-                        <ListItemText primary={product.name} secondary={product.desc} />
-                        <Typography variant="body2">{product.price}</Typography>
+                {symptoms.map((symptom) => (
+                    <ListItem className={classes.listItem} key={symptom.title}>
+                        {symptom.title}
                     </ListItem>
                 ))}
-                <ListItem className={classes.listItem}>
-                    <ListItemText primary="Total" />
-                    <Typography variant="subtitle1" className={classes.total}>
-                        $34.06
-                    </Typography>
-                </ListItem>
+
             </List>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
-                        Shipping
+                       Personal Information
                     </Typography>
-                    <Typography gutterBottom>John Smith</Typography>
-                    <Typography gutterBottom>{addresses.join(', ')}</Typography>
-                </Grid>
-                <Grid item container direction="column" xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom className={classes.title}>
-                        Payment details
-                    </Typography>
-                    <Grid container>
-                        {payments.map((payment) => (
-                            <React.Fragment key={payment.name}>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.name}</Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.detail}</Typography>
-                                </Grid>
-                            </React.Fragment>
-                        ))}
-                    </Grid>
+                    <Typography gutterBottom>{sessionStorage.getItem("firstName_inquiry")}</Typography>
+                    <Typography gutterBottom>{sessionStorage.getItem("lastName_inquiry")}</Typography>
+                    <Typography gutterBottom>{sessionStorage.getItem("age_inquiry")}</Typography>
+                    <Typography gutterBottom>{sessionStorage.getItem("gender_inquiry")}</Typography>
+                    <Typography gutterBottom>{sessionStorage.getItem("contact_number_inquiry")}</Typography>
+                    <Typography gutterBottom>{sessionStorage.getItem("city_inquiry")}</Typography>
                 </Grid>
             </Grid>
         </React.Fragment>

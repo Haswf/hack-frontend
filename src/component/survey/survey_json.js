@@ -148,3 +148,8 @@ export var json = {
 
     ]
 };
+
+
+var sore_thort = document.getElementsByName("sore_thort");
+console.log(sore_thort);
+
