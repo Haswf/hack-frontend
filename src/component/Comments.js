@@ -10,12 +10,16 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import LikeIcon from "@material-ui/icons/ThumbUp";
 import CommentIcon from "@material-ui/icons/ModeComment";
+import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 
 const styles = theme => ({
     root: {
         width: "100%",
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper
+        maxWidth: 3600,
+        backgroundColor: theme.palette.background.paper,
+        marginLeft: 100
     },
     grid: {
         marginLeft: 20
@@ -189,6 +193,33 @@ class AlignItemsList extends React.Component {
     render() {
         const { classes } = this.props;
         return (
+            <main>
+            <div>
+            <Container maxWidth="lg" className={classes.container}>
+                <Grid container spacing={3}>
+                    {/* Chart */}
+                    <Grid item xs={12} md={8} lg={9}>
+                        <Paper >
+                            <p></p>
+                            <p></p>
+                            <p></p>
+
+                        </Paper>
+
+                    </Grid>
+                    {/* Recent Deposits */}
+
+                    <Grid item xs={12}>
+
+                    </Grid>
+                </Grid>
+                <Box pt={4} >
+
+                </Box>
+            </Container>
+            </div>
+
+            <div>
             <List className={classes.root}>
                 {this.state.data.map(item => (
                     <ListItem alignItems="flex-start" key={item.id}>
@@ -199,6 +230,8 @@ class AlignItemsList extends React.Component {
                     </ListItem>
                 ))}
             </List>
+            </div>
+            </main>
         );
     }
 }
