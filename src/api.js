@@ -4,19 +4,43 @@ import { useState, useEffect } from "react";
 const BASE_URL = "https://healthnextdoortest.herokuapp.com";
 
 /*login check used to validate the input with data from the database and let the user log in*/
-export function loginCheck(username, password) {
+export function lookup(key) {
+    console.log(key);
+    //const endpoint = BASE_URL + `/login`;
+    /*
+    return fetch(endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username,
+            password
+        })
+    }).then(res =>{
+        if(res.ok){
+            //store current login status
+        }
+        else{
+        }
+    });*/
 
-  if (!username) {
-    alert("must include a username");
+}
+export function loginCheck(user) {
+  const {email, password} = user;
+  if (!email) {
+    alert("must include a email");
     return;
   }
   if (!password) {
     alert("must include password");
     return;
   }
+  console.log(email);
+  console.log(password);
 
-  const endpoint = BASE_URL + `/login`;
-  // return fetch query to check whether the password is correct
+ // const endpoint = BASE_URL + `/login`;
+  /*
   return fetch(endpoint, {
     method: "POST",
     headers: {
@@ -35,13 +59,16 @@ export function loginCheck(username, password) {
     else{
       alert("wrong password or username");
     }
-  });
+  });*/
 }
 
 /*sign up check used to validate the input and let the user sign up*/
-export function signupCheck(username, password, confirmed_password, identity) {
-
+export function signupCheck(user) {
+  const {email, password, confirmed_password, username} = user;
   if (username === "") {
+    alert("please input a username!");
+  }
+  if (email === "") {
     alert("please input a username!");
   }
   if (password === "") {
@@ -50,9 +77,15 @@ export function signupCheck(username, password, confirmed_password, identity) {
   if (confirmed_password === "") {
     alert("please confirm your password!");
   }
+
   if (password !== confirmed_password) {
     alert("password and confirmed password does not match");
   }
+  console.log(email);
+  console.log(password);
+  console.log(confirmed_password);
+  console.log(username);
+  /*
   const endpoint = BASE_URL + `/signup`;
   return fetch(endpoint, {
     method: "POST",
@@ -80,7 +113,7 @@ export function signupCheck(username, password, confirmed_password, identity) {
       alert("This username has already been taken!");
       window.location.href = `SignUp/`;
     }
-  });
+  });*/
 
 }
 //reset the user password

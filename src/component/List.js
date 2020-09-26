@@ -3,6 +3,7 @@ import ListItem from "./ListItem";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../shared/theme";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Chips from "./Tag";
 
 const ListWrapper = styled.div`
   width: ${props => props.theme.maxWidth};
@@ -164,11 +165,11 @@ class List extends Component {
     const { listTitle, listBreadcrumb, items } = this.state;
     return (
       <ThemeProvider theme={theme}>
-        <ListWrapper>
+        <ListWrapper button onClick={() => toComment()}>
           <ListTitle>{listTitle}</ListTitle>
           <ListBreadcrumb>{listBreadcrumb}</ListBreadcrumb>
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppabe-list">
+            <Droppable droppableId="droppabe-list" >
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
                   {items.map((number, key) => (
@@ -201,6 +202,10 @@ class List extends Component {
       </ThemeProvider>
     );
   }
+}
+
+function toComment(){
+  window.location.assign(`http://localhost:3000/comments`);
 }
 
 export default List;
