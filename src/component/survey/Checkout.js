@@ -87,7 +87,9 @@ export default function Checkout() {
 
     const handleNext = () => {
         if(activeStep===0){
-           var firstName = document.getElementById("firstName_inquiry").value;
+            setActiveStep(activeStep + 1);
+
+            var firstName = document.getElementById("firstName_inquiry").value;
             var lastName = document.getElementById("lastName_inquiry").value;
             var age = document.getElementById("age_inquiry").value;
             var contact_number = document.getElementById("contact_number_inquiry").value;
@@ -107,16 +109,22 @@ export default function Checkout() {
             console.log(sessionStorage.getItem("city_inquiry"));*/
     }
         if(activeStep===1){
-            console.log("stage two:")
-            console.log(sessionStorage.getItem("symptom_value"))
+            if(!sessionStorage.getItem("symptom_value")){
+                alert("Please select at least one symptom!");
+            } else {
+                setActiveStep(activeStep + 1);
+                console.log("stage two:")
+                console.log(sessionStorage.getItem("symptom_value"))
+            }
         }
 
         if(activeStep===2){
+            setActiveStep(activeStep + 1);
             console.log("stage one & stage two:")
             console.log("stage one information:.....")
             console.log(sessionStorage.getItem("symptom_value"))
         }
-        setActiveStep(activeStep + 1);
+
     };
 
     const handleBack = () => {
