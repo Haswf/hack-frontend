@@ -45,17 +45,9 @@ export default function App() {
               <Route path="/discussionlist">
                   <DiscussionList/>
               </Route>
-              <Route path="/survey">
-                  <Checkout />
-              </Route>
-              <Route path="/signup">
-                  <SignUpSide />
-              </Route>
-              <Route path="/comments">
-                  <Comments />
-              </Route>
-
-
+              <Route path="/survey" component={Checkout} />
+              <Route path="/signup" component={SignUpSide} />
+              <Route path="/discussions/:id" component={Comments} />
           </Switch>
         </div>
       </Router>

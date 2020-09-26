@@ -13,6 +13,7 @@ import CommentIcon from "@material-ui/icons/ModeComment";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
+import axios from "../axios";
 
 const styles = theme => ({
     root: {
@@ -53,7 +54,7 @@ const LaSoText = ({ text }) => {
     );
 };
 
-const TopicThumb = ({ item }) => {
+const TopicThumb = ({ reply }) => {
     const handleTextEllipsis = (text, maxLength) => {
         return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
     };
@@ -61,16 +62,16 @@ const TopicThumb = ({ item }) => {
         <Grid container style={{ marginLeft: 10 }}>
             <Grid item xs={12} style={{ marginLeft: -5 }}>
                 <Typography>
-                    <LaSoText text={item.title} />
+                    <LaSoText text={reply.user.username} />
                 </Typography>
             </Grid>
             <Grid item xs={12} style={{ marginTop: 6 }}>
                 <Typography variant="caption">
-                    {"@" + item.author + " - " + new Date().toLocaleDateString()}
+                    {"@" + reply.user["_id"] + " - " + new Date().toLocaleDateString()}
                 </Typography>
             </Grid>
             <Grid item xs={12}>
-                <Typography>{handleTextEllipsis(item.comment, 70)}</Typography>
+                <Typography>{handleTextEllipsis(reply.message, 70)}</Typography>
             </Grid>
             <Grid item xs={12} style={{ marginLeft: -10, marginTop: -12 }}>
                 <IconButton component="span">
@@ -104,6 +105,24 @@ const TopicThumb = ({ item }) => {
 
 class AlignItemsList extends React.Component {
     state = {
+        id: null,
+        discussion: {
+            title: null,
+            replies: [
+                {
+                    _id: "5f6f2e15af31dacb93316691",
+                    user: {
+                        _id: "5f6f2df5af31dacb93316689",
+                        username: "haswf"
+                    },
+                    message: "hello",
+                    parentId: null,
+                    discussionId: "5f6f2e15af31dacb93316692",
+                    createdAt: "2020-09-26T12:03:33.847Z",
+                    updatedAt: "2020-09-26T12:03:33.847Z"
+                }
+            ]
+        },
         data: [
             {
                 id: 1,
@@ -190,48 +209,51 @@ class AlignItemsList extends React.Component {
             }
         ]
     };
+
+    async componentDidMount() {
+        let response = await axios.get(`/discussions/${this.props.match.params.id}`);
+        this.setState({discussion: response.data.data})
+
+    }
+
     render() {
         const { classes } = this.props;
         return (
-            <main>
             <div>
-            <Container maxWidth="lg" className={classes.container}>
-                <Grid container spacing={3}>
-                    {/* Chart */}
-                    <Grid item xs={12} md={8} lg={9}>
-                        <Paper >
-                            <p></p>
-                            <p></p>
-                            <p></p>
+                <Container maxWidth="lg" className={classes.container}>
+                    <Grid container spacing={3}>
+                        {/* Chart */}
+                        <Grid item xs={12} md={8} lg={9}>
+                            <Paper >
 
-                        </Paper>
+                            </Paper>
 
+                        </Grid>
+                        {/* Recent Deposits */}
+
+                        <Grid item xs={12}>
+
+                        </Grid>
                     </Grid>
-                    {/* Recent Deposits */}
+                    <Box pt={4} >
 
-                    <Grid item xs={12}>
-
-                    </Grid>
-                </Grid>
-                <Box pt={4} >
-
-                </Box>
-            </Container>
+                    </Box>
+                </Container>
+                <Typography>
+                    {this.state.discussion.title}
+                </Typography>
+                <List className={classes.root}>
+                    {this.state.discussion.replies.map(reply => {
+                            return <ListItem alignItems="flex-start" key={reply.id}>
+                                <ListItemAvatar>
+                                    <Avatar > {reply.user.username.substring(0,1).toUpperCase()} </Avatar>
+                                </ListItemAvatar>
+                                <TopicThumb reply={reply}/>
+                            </ListItem>
+                        }
+                    )}
+                </List>
             </div>
-
-            <div>
-            <List className={classes.root}>
-                {this.state.data.map(item => (
-                    <ListItem alignItems="flex-start" key={item.id}>
-                        <ListItemAvatar>
-                            <Avatar alt="Remy Sharp" src={item.avatarURL} />
-                        </ListItemAvatar>
-                        <TopicThumb item={item} />
-                    </ListItem>
-                ))}
-            </List>
-            </div>
-            </main>
         );
     }
 }

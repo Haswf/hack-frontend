@@ -5,7 +5,7 @@ import { theme } from "../shared/theme";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Chips from "./Tag";
 import axios from "../axios"
-import dis from "./dis";
+import { withRouter } from "react-router-dom";
 
 const ListWrapper = styled.div`
   width: ${props => props.theme.maxWidth};
@@ -173,7 +173,7 @@ class List extends Component {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           order={key}
-                          button onClick={()=>toComment(number.id,items)}
+                          button onClick={() => this.props.history.push(`/discussions/${number.id}`)}
                          id={number.id}>
                           <ListItem
                             number={number}
@@ -195,18 +195,8 @@ class List extends Component {
   }
 }
 
-function toComment(id,items){
-  items.map(item =>{
-    if(item.id===id){
-
-      //window.location.assign(`http://localhost:3000/comments`);
-      console.log(id);
-    }
-  });
-
-
-}
 function getTime(time2){
+  //moment(props.date).fromNow()
   var myDate = new Date();
   var time1;
   if(myDate.getMonth()<10){
@@ -231,4 +221,4 @@ function getTime(time2){
 
 
 
-export default List;
+export default withRouter(List);

@@ -12,11 +12,12 @@ import axios from "../../axios";
 export default function PaymentForm() {
     const [tags, setTags] = useState([]);
 
-    useEffect(async () => {
+    async function getSymptoms() {
         let response = await axios.get("/symptoms/", {});
         setTags(response.data.data.symptoms)
-    }, [])
+    }
 
+    useEffect(() => { getSymptoms() }, []);
 
     return (
         <React.Fragment>

@@ -22,10 +22,12 @@ export default function Chips() {
     const classes = useStyles();
     const [tags, setTags] = useState();
 
-    useEffect(async () => {
+    async function getSymptoms() {
         let response = await axios.get("/symptoms/", {});
         setTags(response.data.data.symptoms)
-    }, [])
+    }
+
+    useEffect(() => { getSymptoms() }, []);
 
 
     const handleDelete = () => {
