@@ -86,11 +86,52 @@ export default function Checkout() {
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
-        console.log(activeStep)
+        if(activeStep===0){
+           var firstName = document.getElementById("firstName_inquiry").value;
+            var lastName = document.getElementById("lastName_inquiry").value;
+            var age = document.getElementById("age_inquiry").value;
+            var contact_number = document.getElementById("contact_number_inquiry").value;
+            var city = document.getElementById("city_inquiry").value;
+            sessionStorage.setItem("firstName_inquiry",firstName);
+            sessionStorage.setItem("lastName_inquiry",lastName);
+            sessionStorage.setItem("age_inquiry",age);
+            sessionStorage.setItem("contact_number_inquiry",contact_number);
+            sessionStorage.setItem("city_inquiry",city);
+
+            /*console.log("stage one:");
+            console.log(sessionStorage.getItem("firstName_inquiry"));
+            console.log(sessionStorage.getItem("lastName_inquiry"));
+            console.log(sessionStorage.getItem("age_inquiry"));
+            console.log(sessionStorage.getItem("gender_inquiry"));
+            console.log(sessionStorage.getItem("contact_number_inquiry"));
+            console.log(sessionStorage.getItem("city_inquiry"));*/
+    }
+        if(activeStep===1){
+            console.log("stage two:")
+            console.log(sessionStorage.getItem("symptom_value"))
+        }
+
+        if(activeStep===2){
+            console.log("stage one & stage two:")
+            console.log("stage one information:.....")
+            console.log(sessionStorage.getItem("symptom_value"))
+        }
         setActiveStep(activeStep + 1);
     };
 
     const handleBack = () => {
+        if(activeStep===1){
+            console.log(1);
+            sessionStorage.removeItem("firstName_inquiry");
+            sessionStorage.removeItem("lastName_inquiry");
+            sessionStorage.removeItem("age_inquiry");
+            sessionStorage.removeItem("contact_number_inquiry");
+            sessionStorage.removeItem("city_inquiry");
+            sessionStorage.removeItem("gender_inquiry");
+        }
+        if(activeStep===2){
+            sessionStorage.removeItem("symptom_value");
+        }
         setActiveStep(activeStep - 1);
     };
 

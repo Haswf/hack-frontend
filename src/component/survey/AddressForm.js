@@ -19,7 +19,7 @@ export default function AddressForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="firstName"
+                        id="firstName_inquiry"
                         name="firstName"
                         label="First name"
                         fullWidth
@@ -29,7 +29,7 @@ export default function AddressForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="lastName"
+                        id="lastName_inquiry"
                         name="lastName"
                         label="Last name"
                         fullWidth
@@ -39,7 +39,7 @@ export default function AddressForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="age"
+                        id="age_inquiry"
                         name="age"
                         label="Age"
                         fullWidth
@@ -48,6 +48,7 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Autocomplete
+                        onChange={(event, value) => sessionStorage.setItem("gender_inquiry",JSON.stringify(value))}
                         {...defaultProps}
                         required
                         id="Gender"
@@ -58,46 +59,25 @@ export default function AddressForm() {
                 <Grid item xs={12}>
                     <TextField
                         required
-                        id="email"
-                        name="email"
-                        label="Email Address"
+                        id="contact_number_inquiry"
+                        name="contact_number"
+                        label="Contact number"
                         fullWidth
-                        autoComplete="email address"
+                        autoComplete="contact_number"
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="city"
+                        id="city_inquiry"
                         name="city"
                         label="City"
                         fullWidth
                         autoComplete="address-level2"
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Zip / Postal code"
-                        fullWidth
-                        autoComplete="postal-code"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="country"
-                    />
-                </Grid>
+
+
                 {/*{<Grid item xs={12}>*/}
                 {/*    <FormControlLabel*/}
                 {/*        control={<Checkbox color="secondary" name="saveAddress" value="yes" />}*/}
