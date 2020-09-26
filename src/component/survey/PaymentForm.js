@@ -35,10 +35,6 @@ export default function PaymentForm() {
                     />
                 )}
             />
-            <button onClick={()=>save()}>save</button>
-
-
-
         </React.Fragment>
     );
 }
@@ -62,7 +58,3 @@ const symptomsTags = [
 ];
 console.log(document.getElementById("symptoms"))
 
-function save(){
-    console.log(sessionStorage.getItem("value"))
-    console.log(1);
-}
