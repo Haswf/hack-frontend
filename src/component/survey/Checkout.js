@@ -14,7 +14,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import SurveyPage from './Symptom';
 import Review from './Review';
-
+import axios from '../../axios'
 
 function Copyright() {
     return (
@@ -85,6 +85,14 @@ export default function Checkout() {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
 
+    const submitSurveyResult = (data) => {
+        let response = axios.post("/survey-results", data, {
+            headers: {
+                Authorization: "Bearer" + JSON.parse(localStorage.getItem("token"))
+            }
+        })
+    }
+
     const handleNext = () => {
         if(activeStep===0){
             setActiveStep(activeStep + 1);
@@ -126,6 +134,9 @@ export default function Checkout() {
             console.log("stage one & stage two:")
             console.log("stage one information:.....")
             console.log(sessionStorage.getItem("symptom_value"))
+        }
+        if(activeStep===3) {
+
         }
 
     };

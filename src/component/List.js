@@ -59,8 +59,8 @@ class List extends Component {
     var items =[];
     discussions.map(discussion => {
       var item =[];
-      item["lastUser"] = discussion["author"].username;
       console.log(discussion);
+      item["lastUser"] = discussion["author"]["username"];
       item["id"] = discussion["_id"];
       item["textValue"] = discussion["title"];
       item["hasActions"]= false;

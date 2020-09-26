@@ -24,31 +24,6 @@ export async function lookup(key) {
 
 }
 
-export function resetPassword(user) {
-  const {email, password, confirmed_password, username} = user;
-
-}
-export async function loginCheck(user) {
-  const {email, password} = user;
-  console.log("log in");
-  let response = await axios.post(
-      '/auth/login/',
-      null,
-      {
-        params: {
-          email: email,
-          password: password,
-        }
-      }
-  );
-  const user_data = response.data.data;
-  localStorage.setItem('data', JSON.stringify(response.data.status));
-  localStorage.setItem('user', JSON.stringify(user_data));
-  if(JSON.stringify(response.data.status) === '"success"'){
-     window.location.assign("http://localhost:3000/usercenter");
-  }
-  return user_data;
-}
 
 /*sign up check used to validate the input and let the user sign up*/
 export async function signupCheck(user) {
@@ -170,7 +145,7 @@ export function updateUser(user) {
       password
     })
   }).then(res =>{
-    window.location.assign(`https://healthnextdoor.herokuapp.com/user-management/${window.sessionStorage.getItem("username")}`)
+    // window.location.assign(`https://healthnextdoor.herokuapp.com/user-management/${window.sessionStorage.getItem("username")}`)
 
   });
 }
@@ -209,23 +184,23 @@ export function useDiscussion() {
   };
 }
 
-export function updateimage(url) {
-  const username = window.sessionStorage.getItem("username");
-  const endpoint = BASE_URL + `/findCaregiver/${username}`;
-  return fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      "username":username,
-      "image": url
-
-    })
-  }).then(res =>{
-    if(res.ok){
-      window.location.assign(`https://healthnextdoor.herokuapp.com/CaregiverInformation/${username}`)
-      //window.location.href = `CaregiverInformation/${username}`;
-    }
-  });
-}
+// export function updateimage(url) {
+//   const username = window.sessionStorage.getItem("username");
+//   const endpoint = BASE_URL + `/findCaregiver/${username}`;
+//   return fetch(endpoint, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       "username":username,
+//       "image": url
+//
+//     })
+//   }).then(res =>{
+//     if(res.ok){
+//       window.location.assign(`https://healthnextdoor.herokuapp.com/CaregiverInformation/${username}`)
+//       //window.location.href = `CaregiverInformation/${username}`;
+//     }
+//   });
+// }
