@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { theme } from '../shared/theme'
+import LetterAvatars from "./LetterAvatars";
 
 const ListItemWrapper = styled.div`
   padding: 10px 0;
@@ -316,7 +317,7 @@ class ListItem extends Component {
         <ListItemWrapper className={isAlive ? `` : `list-item-wrapper--hide`}>
           <ListItemContent className={listItemContentClass}>
             <ListItemImageWrapper>
-              <img src={image} alt={textValue} />
+              <LetterAvatars{...lastUser}/>
             </ListItemImageWrapper>
             <ListItemInfo>
               <ListItemText onSubmit={this.toggleEditName}>
