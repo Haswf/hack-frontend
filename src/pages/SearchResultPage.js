@@ -1,9 +1,9 @@
-import React, {Component, useState} from "react";
-import ListItem from "./ListItem";
+import React, { Component } from "react";
+import ListItem from "../component/ListItem";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../shared/theme";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Chips from "./Tag";
+import Chips from "../component/Tag";
 import axios from "../axios"
 import { withRouter } from "react-router-dom";
 
@@ -64,7 +64,7 @@ class List extends Component {
   updateSelected(newSelected) {
     this.setState({...this.state,
       selected: newSelected
-      })
+    })
   }
 
 
@@ -78,10 +78,10 @@ class List extends Component {
     })
   }
 
-
   async componentDidMount() {
     this.mapToItem();
     this.getSymptoms();
+
   }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -91,30 +91,40 @@ class List extends Component {
   }
 
   async mapToItem() {
-    const response = await axios.get("/discussions/", {});
-    const discussions = response.data.data.discussions;
-    var items =[];
-    discussions.map(discussion => {
-      const tags = discussion.surveyResultId.symptoms.map(s => {
-        return s["_id"];
-      })
-      for (let i=0; i<tags.length; i++) {
-        if (this.state.selected.includes(tags[i])) {
-          items.push({
-            lastUser: discussion["author"]["username"],
-            id: discussion["_id"],
-            textValue: discussion["title"],
-            hasActions: false,
-            daysAgo: getTime(discussion["createdAt"])
-
-          });
-          break;
+      const response = await axios.post("/search", null,
+          {
+            params: {
+              query: this.props.match.params.query,
+              page: 0,
+              limit: 10000
+            }
         }
-      }
+      )
+      const discussions = response.data.data;
+      let items =[];
+      discussions.map(discussion => {
+        const tags = discussion.surveyResultId.symptoms.map(s => {
+          return s["_id"];
+        })
+        for (let i=0; i<tags.length; i++) {
+          console.log(this.state.selected.includes(tags[i]))
+          if (this.state.selected.includes(tags[i])) {
+            items.push({
+              lastUser: discussion["author"]["username"],
+              id: discussion["_id"],
+              textValue: discussion["title"],
+              hasActions: false,
+              daysAgo: getTime(discussion["createdAt"])
+            });
+            break;
+          }
+        }
 
-    });
-    this.setState({items: items})
-  }
+
+      });
+      this.setState({items: items})
+    }
+
 
 
   reorderItems = (startIndex, endIndex) => {

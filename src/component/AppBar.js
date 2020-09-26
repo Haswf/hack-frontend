@@ -103,6 +103,7 @@ const PrimarySearchAppBar = (props) => {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const [query, setQuery] = React.useState("");
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -184,11 +185,6 @@ const PrimarySearchAppBar = (props) => {
             window.sessionStorage.removeItem("searching");
         }
     }
-    const onChange = (event) => {
-        console.log(event.target.value);
-        window.sessionStorage.setItem("searching", event.target.value);
-    }
-
     return (
         <div className={classes.grow}>
             <AppBar position="static">
@@ -206,14 +202,14 @@ const PrimarySearchAppBar = (props) => {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
-                            onChange={onChange}
+                            onChange={(e) => setQuery(e.target.value)}
                         />
                         <IconButton
                             edge="start"
                             className={classes.menuButton}
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={() => searching()}
+                            onClick={() => props.history.push("/search/"+query)}
                         >
                             <SearchIcon />
                         </IconButton>

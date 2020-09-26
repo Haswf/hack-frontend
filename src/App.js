@@ -13,8 +13,7 @@ import Checkout from "./component/survey/Checkout";
 import Dis from "./component/dis";
 
 import { SnackbarProvider } from 'notistack';
-import ResetPassword from "./pages/ResetPassword";
-import SearchingList from "./pages/Searching";
+import SearchResultPage from "./pages/SearchResultPage";
 
 export default function App() {
   return (
@@ -34,6 +33,8 @@ export default function App() {
               <Route path="/survey" component={Checkout} />
               <Route path="/signup" component={SignUpSide} />
               <Route path="/discussions/:id" component={Comments} />
+            <Route path="/search/:query" component={SearchResultPage} />
+
           </Switch>
         </div>
       </Router>
