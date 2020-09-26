@@ -70,7 +70,7 @@ export async function signupCheck(user) {
   console.log(confirmed_password);
   console.log(username);
   let response = await axios.post(
-      '/users/',
+      '/users',
       null,
       {params:{
         email:email,
