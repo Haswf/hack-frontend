@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import {loginCheck} from "../api";
+import {loginCheck, resetPassword, signupCheck} from "../api";
 
 function Copyright() {
     return (
@@ -58,17 +58,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function sign_in() {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value
-    loginCheck({
+function reset() {
+    var email = document.getElementById("email_reset").value;
+    var password = document.getElementById("password_reset").value;
+    var confirmed_password = document.getElementById("confirmpassword_reset").value;
+    var username = document.getElementById("username_reset").value;;
+    resetPassword({
         email,
         password,
+        confirmed_password,
+        username
     });
-    //window.sessionStorage.setItem("email", document.getElementById("email").value);
 }
 
-export default function SignInSide() {
+export default function ResetPasword() {
     const classes = useStyles();
 
     return (
@@ -81,7 +84,7 @@ export default function SignInSide() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Reset Password
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
@@ -89,7 +92,7 @@ export default function SignInSide() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
+                            id="email_reset"
                             label="Email Address"
                             name="email"
                             autoComplete="email"
@@ -100,11 +103,33 @@ export default function SignInSide() {
                             margin="normal"
                             required
                             fullWidth
+                            name="username"
+                            label="username"
+                            type="username"
+                            id="username_reset"
+                            autoComplete="username"
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
                             name="password"
                             label="Password"
                             type="password"
-                            id="password"
-                            autoComplete="new-password"
+                            id="password_reset"
+                            autoComplete="current-password"
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmpassword"
+                            label="confirm-password"
+                            type="password"
+                            id="confirmpassword_reset"
+                            autoComplete="confirm-password"
                         />
 
                         <Button
@@ -113,22 +138,10 @@ export default function SignInSide() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={() => sign_in()}
+                            onClick={() => reset()}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="/resetpassword" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="/signup" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
                         <Box mt={5}>
                             <Copyright />
                         </Box>

@@ -13,6 +13,8 @@ import Survey from "./component/Survey";
 import SignInSide from "./pages/Login";
 import SignUpSide from "./pages/Signup";
 import Comments from "./component/Comments";
+import Dis from "./component/dis";
+import ResetPassword from "./pages/ResetPassword";
 
 export default function App() {
   return (
@@ -32,8 +34,11 @@ export default function App() {
               <Route path="/login">
                   <SignInSide />
               </Route>
+              <Route path="/resetpassword">
+                  <ResetPassword />
+              </Route>
               <Route path="/discussion">
-                  <CommentExampleComment />
+                  <Dis />
               </Route>
               <Route path="/discussionlist">
                   <DiscussionList/>
