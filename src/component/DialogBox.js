@@ -10,6 +10,7 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
+import {commentDis} from "../api";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -104,5 +105,13 @@ function submitRating() {
     let index;
     index = username.lastIndexOf('/');
     username = username.slice(index+1);
+    console.log("11111111111111")
+    console.log(username)
+
+    commentDis({
+        username: username,
+        name: name,
+        comment: review.value,
+    });
 
 }

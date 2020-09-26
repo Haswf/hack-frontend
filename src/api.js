@@ -204,3 +204,29 @@ export function useDiscussion() {
 //     }
 //   });
 // }
+
+export function commentDis(user) {
+    const { username, name, comment} = user;
+    const endpoint = BASE_URL + `/discussions/${username}`;
+// return fetch query
+    console.log(username);
+    var action = [username, comment];
+    console.log(action);
+    console.log(JSON.stringify([username, comment]));
+    return fetch(endpoint, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            action
+        })
+    }).then(res =>{
+        if(res.ok){
+            window.location.assign(`http://localhost:3000/`)
+            //window.location.href = `CaregiverInformation/${username}`;
+        }else{
+            alert("nonononononononoon!");
+        }
+    });
+}
