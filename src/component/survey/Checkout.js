@@ -175,8 +175,7 @@ export default function Checkout() {
                                     Thank you for your inquiry.
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    Your inquiry number is #2001539. We have emailed your inquiry confirmation, and will
-                                    send you an update when your inquiry has been answered.
+                                    Your inquiry has been submitted. We will message you an update when your inquiry has been answered.
                                 </Typography>
                             </React.Fragment>
                         ) : (
@@ -194,7 +193,7 @@ export default function Checkout() {
                                         onClick={handleNext}
                                         className={classes.button}
                                     >
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                        {activeStep === steps.length - 1 ? 'Post Inquiry' : 'Next'}
                                     </Button>
                                 </div>
                             </React.Fragment>

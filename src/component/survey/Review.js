@@ -24,12 +24,21 @@ const payments = [
 const useStyles = makeStyles((theme) => ({
     listItem: {
         padding: theme.spacing(1, 0),
+        marginLeft: 240,
+
+        color: '#006064',
     },
     total: {
         fontWeight: 700,
     },
     title: {
         marginTop: theme.spacing(2),
+        alignItems: "center"
+
+    },
+    personalinfo: {
+        alignItems: 'left',
+        color: '#006064',
     },
 }));
 
@@ -48,19 +57,18 @@ export default function Review() {
                         {symptom.title}
                     </ListItem>
                 ))}
-
             </List>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} >
                     <Typography variant="h6" gutterBottom className={classes.title}>
                        Personal Information
                     </Typography>
-                    <Typography gutterBottom>{sessionStorage.getItem("firstName_inquiry")}</Typography>
-                    <Typography gutterBottom>{sessionStorage.getItem("lastName_inquiry")}</Typography>
-                    <Typography gutterBottom>{sessionStorage.getItem("age_inquiry")}</Typography>
-                    <Typography gutterBottom>{sessionStorage.getItem("gender_inquiry")}</Typography>
-                    <Typography gutterBottom>{sessionStorage.getItem("contact_number_inquiry")}</Typography>
-                    <Typography gutterBottom>{sessionStorage.getItem("city_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"First Name:  " + sessionStorage.getItem("firstName_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"Last Name:   " + sessionStorage.getItem("lastName_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"Age: " + sessionStorage.getItem("age_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"Gender:  " + sessionStorage.getItem("gender_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"Contact Number:  " + sessionStorage.getItem("contact_number_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"City:    " + sessionStorage.getItem("city_inquiry")}</Typography>
                 </Grid>
             </Grid>
         </React.Fragment>
