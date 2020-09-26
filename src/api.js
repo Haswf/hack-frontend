@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import axios from "./axios";
 // TODO - update this to be your url
 const BASE_URL = "https://healthnextdoortest.herokuapp.com";
 
@@ -30,40 +30,22 @@ export function resetPassword(user) {
   const {email, password, confirmed_password, username} = user;
 
 }
-export function loginCheck(user) {
+export async function loginCheck(user) {
   const {email, password} = user;
-  if (!email) {
-    alert("must include a email");
-    return;
-  }
-  if (!password) {
-    alert("must include password");
-    return;
-  }
-  console.log(email);
-  console.log(password);
-
- // const endpoint = BASE_URL + `/login`;
-  /*
-  return fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      username,
-      password
-    })
-  }).then(res =>{
-    if(res.ok){
-      //store current login status
-      window.sessionStorage.setItem("username",username);
-      window.location.assign(`user-management/${username}`)
-    }
-    else{
-      alert("wrong password or username");
-    }
-  });*/
+  console.log("log in");
+  let response = await axios.post(
+      '/auth/login/',
+      null,
+      {
+        params: {
+          email: email,
+          password: password,
+        }
+      }
+  );
+  const user_data = response.data.data;
+  localStorage.setItem('user', JSON.stringify(user_data));
+  return user_data;
 }
 
 /*sign up check used to validate the input and let the user sign up*/
@@ -195,7 +177,7 @@ export function useDiscussion() {
   useEffect(() => {
     getDiscussion()
         .then(discussion => {
-          setDiscussion(discussion);
+          setDiscussion(discussion.data.discussions);
           setLoading(false);
         })
         .catch(e => {

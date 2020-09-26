@@ -16,6 +16,7 @@ import {loginCheck} from "../api";
 
 function Copyright() {
     return (
+
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
@@ -113,7 +114,7 @@ export default function SignInSide() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            onClick={() => sign_in()}
+                            onClick={sign_in}
                         >
                             Sign In
                         </Button>
