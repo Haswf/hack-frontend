@@ -1,46 +1,25 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import {loginCheck, signupCheck} from "../api";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {makeStyles} from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import axios from "../axios";
+import {Link} from "react-router-dom";
+import Copyright from "../component/Copyright";
+import Alert from "@material-ui/lab/Alert";
+import Dialog from "@material-ui/core/Dialog";
+import { useSnackbar } from 'notistack';
+import { withRouter} from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        height: '100vh',
-    },
-    image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    },
     paper: {
-        margin: theme.spacing(8, 4),
+        marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -51,103 +30,136 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(3),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
 }));
 
-function sign_up() {
-    var email = document.getElementById("email_signup").value;
-    var password = document.getElementById("password_signup").value;
-    var confirmed_password = document.getElementById("confirmpassword_signup").value;
-    var username = document.getElementById("username_signup").value;;
-    signupCheck({
-        email,
-        password,
-        confirmed_password,
-        username
-    });
-}
-
-export default function SignUpSide() {
+const SignUp = function(props) {
     const classes = useStyles();
+    const [userUserName, setUserUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [signupFailed, setSignupFailed] = useState(false);
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const onSignUpHandler = async () => {
+        try {
+            await axios.post("/users/", null, {
+                params: {
+                    username: userUserName,
+                    email: userEmail,
+                    password: userPassword
+                }
+            });
+            props.history.replace({pathname: "/login"})
+        }
+        catch (error) {
+            enqueueSnackbar("Signup failed: "+error.message , {
+                variant: 'error'
+            });
+            setSignupFailed(true);
+        }
+    };
+
+    const isPasswordValid = (password) => {
+        if (password.length < 8) {
+            return false;
+        }
+        if (/\s/.test(password)) {
+            return false;
+        }
+        return (/[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password));
+    }
 
     return (
-        <Grid container component="main" className={classes.root}>
-            <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
-                    </Typography>
-                    <form className={classes.form} noValidate>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email_signup"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="username"
-                            label="username"
-                            type="username"
-                            id="username_signup"
-                            autoComplete="username"
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password_signup"
-                            autoComplete="current-password"
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="confirmpassword"
-                            label="confirm-password"
-                            type="password"
-                            id="confirmpassword_signup"
-                            autoComplete="confirm-password"
-                        />
-
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={() => sign_up()}
-                        >
-                            Sign Up
-                        </Button>
-                        <Box mt={5}>
-                            <Copyright />
-                        </Box>
-                    </form>
-                </div>
-            </Grid>
-        </Grid>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline/>
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign up
+                </Typography>
+                <form className={classes.form} noValidate>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                autoComplete="uname"
+                                name="username"
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                autoFocus
+                                onChange={(event) => setUserUserName(event.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                onChange={(event) => setUserEmail(event.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                error={!isPasswordValid(userPassword)}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                helperText="At least 8 characters of upper case, lower case letters and digits without spaces"
+                                onChange={(event) => setUserPassword(event.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={onSignUpHandler}
+                        disabled={!userEmail || !userUserName || !userPassword || !isPasswordValid(userPassword)}
+                    >
+                        Sign Up
+                    </Button>
+                    <Grid container justify="flex-end">
+                        <Grid item>
+                            <Link to="/login" variant="body2">
+                                Already have an account? Sign in
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+            <Box mt={5}>
+                <Copyright/>
+            </Box>
+            <Dialog
+                open={signupFailed}
+            >
+                <Alert severity="warning"
+                       onClose={() => {setSignupFailed(false);}
+                       }>
+                    Signup failed, the email address may already exists or the password is too weak, please try again.
+                </Alert>
+            </Dialog>
+        </Container>
     );
 }
+
+
+export default withRouter(SignUp);
