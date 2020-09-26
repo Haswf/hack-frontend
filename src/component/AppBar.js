@@ -18,6 +18,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ForumIcon from '@material-ui/icons/Forum';
 import DescriptionIcon from '@material-ui/icons/Description';
 import {lookup} from "../api";
+import {withRouter} from "react-router"
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -83,10 +84,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function backHomePage() {
-    window.location.assign(`http://localhost:3000/`);
-}
-
 function ToForum() {
     window.location.assign(`http://localhost:3000/discussionlist`);
 }
@@ -99,7 +96,7 @@ function signin() {
     window.location.assign(`http://localhost:3000/usercenter`);
 }
 
-export default function PrimarySearchAppBar() {
+const PrimarySearchAppBar = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -226,7 +223,7 @@ export default function PrimarySearchAppBar() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={() => backHomePage()}
+                        onClick={() => props.history.push("/")}
                     >
                         <HomeIcon />
                     </IconButton>
@@ -235,7 +232,7 @@ export default function PrimarySearchAppBar() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={() => ToForum()}
+                        onClick={() => props.history.push("/discussionList")}
                     >
                         <ForumIcon />
                     </IconButton>
@@ -244,37 +241,37 @@ export default function PrimarySearchAppBar() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={() => survey()}
+                        onClick={() => props.history.push("/survey")}
                     >
                         <DescriptionIcon />
                     </IconButton>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={() => signin()}
-                    >
-                        <AccountCircle />
-                    </IconButton>
+                    {/*<IconButton*/}
+                    {/*    edge="start"*/}
+                    {/*    className={classes.menuButton}*/}
+                    {/*    color="inherit"*/}
+                    {/*    aria-label="open drawer"*/}
+                    {/*    onClick={() => props.history.push("/survey")}*/}
+                    {/*>*/}
+                    {/*    <AccountCircle />*/}
+                    {/*</IconButton>*/}
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        {/*<IconButton aria-label="show 4 new mails" color="inherit">*/}
+                        {/*    <Badge badgeContent={0} color="secondary">*/}
+                        {/*        <MailIcon />*/}
+                        {/*    </Badge>*/}
+                        {/*</IconButton>*/}
+                        {/*<IconButton aria-label="show 17 new notifications" color="inherit">*/}
+                        {/*    <Badge badgeContent={0} color="secondary">*/}
+                        {/*        <NotificationsIcon />*/}
+                        {/*    </Badge>*/}
+                        {/*</IconButton>*/}
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
+                            onClick={() => {props.history.push("/login")}}
                             color="inherit"
                         >
                             <AccountCircle />
@@ -298,3 +295,5 @@ export default function PrimarySearchAppBar() {
         </div>
     );
 }
+
+export default withRouter(PrimarySearchAppBar)

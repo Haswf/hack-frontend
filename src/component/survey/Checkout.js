@@ -126,6 +126,7 @@ export default function Checkout() {
                 setActiveStep(activeStep + 1);
                 console.log("stage two:")
                 console.log(sessionStorage.getItem("symptom_value"))
+                console.log(sessionStorage.getItem("des_inquiry"))
             }
         }
 

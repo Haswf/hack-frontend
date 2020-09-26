@@ -5,7 +5,8 @@ import Chip from '@material-ui/core/Chip';
 import FaceIcon from '@material-ui/icons/Face';
 import DoneIcon from '@material-ui/icons/Done';
 import axios from '../axios';
-
+import ReactChip from 'react-chip'
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Chips() {
     const classes = useStyles();
-    const [tags, setTags] = useState();
-
+    const [tags, setTags] = useState([]);
+    const [selected, setSelected] = useState([]);
     async function getSymptoms() {
         let response = await axios.get("/symptoms/", {});
         setTags(response.data.data.symptoms)
@@ -30,24 +31,44 @@ export default function Chips() {
     useEffect(() => { getSymptoms() }, []);
 
 
-    const handleDelete = () => {
-        console.info('You clicked the delete icon.');
+    const handleDelete = (tag) => {
+        const newSelected = selected.filter(e=>{return e!==tag._id})
+        setSelected(newSelected)
+        sessionStorage.setItem("tag_filter",JSON.stringify(selected))
+        console.log(sessionStorage.getItem("tag_filter"))
+
     };
 
-    const handleClick = () => {
-        console.info('You clicked the Chip.');
+    const handleClick = (tag) => {
+        const newSelected = [...selected,tag._id]
+        if(!selected.includes(tag._id)) {
+            setSelected(newSelected)
+        }
+
+        sessionStorage.setItem("tag_filter",JSON.stringify(selected))
+        console.log(sessionStorage.getItem("tag_filter"))
+
     };
 
     let tagComponents = null;
+    let current_color = "default"
     if (tags !== undefined && tags.length > 0) {
         tagComponents = tags.map(tag => {
+            let enabled =selected.includes(tag._id)
+            if (selected.includes(tag._id)){
+                current_color = "primary"
+            } else {
+                current_color = "default"
+            }
             return <Chip
                 avatar={<Avatar>{tag.name.substring(0, 1).toUpperCase()}</Avatar>}
                 label={tag.name}
                 clickable
-                color="primary"
-                onDelete={handleDelete}
-                deleteIcon={<DoneIcon />}
+                color={enabled?"primary":"default"}
+                onClick={()=>handleClick(tag)}
+                onDelete={()=>handleDelete(tag)}
+
+                deleteIcon={!enabled?<DoneIcon />:null}
             />
         })
     }

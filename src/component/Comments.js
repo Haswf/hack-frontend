@@ -107,116 +107,33 @@ const TopicThumb = ({ reply }) => {
 };
 
 class AlignItemsList extends React.Component {
-    state = {
-        id: null,
-        discussion: {
-            title: null,
-            replies: [
-                {
-                    _id: "5f6f2e15af31dacb93316691",
-                    user: {
-                        _id: "5f6f2df5af31dacb93316689",
-                        username: "haswf"
-                    },
-                    message: "hello",
-                    parentId: null,
-                    discussionId: "5f6f2e15af31dacb93316692",
-                    createdAt: "2020-09-26T12:03:33.847Z",
-                    updatedAt: "2020-09-26T12:03:33.847Z"
-                }
-            ]
-        },
-        data: [
-            {
-                id: 1,
-                author: "Ms. Rebecca DuBuque",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/craigelimeliah/128.jpg",
-                comment:
-                    "Sed voluptatem minus impedit nostrum quidem eum nam sint aut. Aut quia culpa. Ut pariatur consequatur optio aliquam in rerum amet eos corporis."
-            },
-            {
-                id: 2,
-                author: "Selmer Mayert",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/alevizio/128.jpg",
-                comment: "rerum"
-            },
-            {
-                id: 3,
-                author: "Lolita Ziemann",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/operatino/128.jpg",
-                comment: "eaque voluptate unde"
-            },
-            {
-                id: 4,
-                author: "Kraig Farrell",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/trueblood_33/128.jpg",
-                comment: "Necessitatibus qui optio sint reiciendis.\nQui ipsam quos."
-            },
-            {
-                id: 5,
-                author: "Reuben White",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/baluli/128.jpg",
-                comment: "Reprehenderit est itaque quia."
-            },
-            {
-                id: 6,
-                author: "Abigale Kovacek",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/renbyrd/128.jpg",
-                comment:
-                    "Occaecati ratione eligendi ut et ex nam delectus culpa libero."
-            },
-            {
-                id: 7,
-                author: "Minerva Kohler",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/renbyrd/128.jpg",
-                comment: "dolorem"
-            },
-            {
-                id: 8,
-                author: "Nelda Nicolas",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/alexivanichkin/128.jpg",
-                comment: "commodi"
-            },
-            {
-                id: 9,
-                author: "Eula Orn",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/xiel/128.jpg",
-                comment:
-                    "Error repellendus rerum iusto reiciendis voluptas omnis. Suscipit nostrum atque ipsum ad nobis. Recusandae et vel laboriosam. Reiciendis non ut quasi exercitationem libero ut aut quibusdam. Et consequuntur sit vero. Deserunt fugit ut rerum at minima.\n \rConsectetur maxime praesentium beatae illo unde quo. Fuga nemo et eaque sunt ratione. Soluta natus et odit. Aspernatur illo ratione dolore deserunt et tempora excepturi doloribus. Eos ipsam expedita pariatur fuga.\n \rEum nam id. Blanditiis enim et non id dolores quod. Dignissimos saepe rerum et quas asperiores. Non aut rerum expedita ea qui qui fugit quos veniam. Veniam inventore quisquam explicabo temporibus voluptatem."
-            },
-            {
-                id: 10,
-                author: "Gisselle Gutkowski",
-                title: "you will die",
-                avatarURL:
-                    "https://s3.amazonaws.com/uifaces/faces/twitter/nelshd/128.jpg",
-                comment: "eaque temporibus aspernatur"
+    constructor() {
+        super();
+        this.state = {
+                id: null,
+                discussion: {
+                    title: null,
+                    replies: [
+                        {
+                            _id: "5f6f2e15af31dacb93316691",
+                            user: {
+                                _id: "5f6f2df5af31dacb93316689",
+                                username: "haswf"
+                            },
+                            message: "hello",
+                            parentId: null,
+                            discussionId: "5f6f2e15af31dacb93316692",
+                            createdAt: "2020-09-26T12:03:33.847Z",
+                            updatedAt: "2020-09-26T12:03:33.847Z"
+                        }
+                    ]
+                },
             }
-        ]
-    };
 
+    }
     async componentDidMount() {
         let response = await axios.get(`/discussions/${this.props.match.params.id}`);
         this.setState({discussion: response.data.data})
-
     }
 
     render() {
@@ -247,7 +164,7 @@ class AlignItemsList extends React.Component {
                 <Typography variant="h3">
                     {this.state.discussion.title}
                 </Typography>
-                <DialogBox />
+                <DialogBox discussionId={this.state.discussion["_id"]} parentId={this.state.discussion.replies[0]._id}/>
                 <List className={classes.root}>
                     {this.state.discussion.replies.map(reply => {
                             return <ListItem alignItems="flex-start" key={reply.id}>
