@@ -57,7 +57,7 @@ const SignIn = (props) => {
             localStorage.setItem("user", JSON.stringify(response.data.data.user));
             localStorage.setItem("token", JSON.stringify(response.data.data.token));
             console.log(response.data.data.token);
-            props.history.replace({pathname: "/subjects/"})
+            props.history.replace({pathname: "/discussionList"})
             axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.data.token;
         }
         catch (error) {
@@ -122,13 +122,13 @@ const SignIn = (props) => {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link to="/recover" variant="body2">
-                                Forgot password?
-                            </Link>
+                            {/*<Link to="/recover" variant="body2">*/}
+                            {/*    Forgot password?*/}
+                            {/*</Link>*/}
                         </Grid>
                         <Grid item>
                             <Link
-                                to="/sign-up"
+                                to="/signup"
                                 variant="body2">
                                 Don't have an account? Sign Up!
                             </Link>
