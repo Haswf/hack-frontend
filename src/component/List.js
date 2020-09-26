@@ -106,6 +106,7 @@ class List extends Component {
 
   async componentDidMount() {
     const response = await axios.get("/discussions/", {});
+    console.log(response)
     this.setState({discussions: response.data.data.discussions})
   }
 
