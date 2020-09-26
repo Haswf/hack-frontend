@@ -120,6 +120,40 @@ export function signupCheck(user) {
   });*/
 
 }
+
+function getUsers() {
+  const endpoint = BASE_URL + `/user`;
+  return fetch(endpoint).then(res => {
+    console.log(res);
+    return res.json();
+  });
+}
+
+export function useUser() {
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getUsers()
+        .then(users => {
+          setUsers(users);
+          setLoading(false);
+        })
+        .catch(e => {
+          console.log(e);
+          setError(e);
+          setLoading(false);
+        });
+  }, []);
+
+  return {
+    loading,
+    users,
+    error
+  };
+}
+
 //reset the user password
 export function updateUser(user) {
   const { username, password} = user;
