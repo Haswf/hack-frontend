@@ -15,7 +15,7 @@ export default function PaymentForm() {
 
     const handleChange = (event) => {
         setValue(event.target.value);
-        sessionStorage.setItem("des_inquiry",value)
+        sessionStorage.setItem("des_inquiry",JSON.stringify(value))
     };
     async function getSymptoms() {
         let response = await axios.get("/symptoms/", {});

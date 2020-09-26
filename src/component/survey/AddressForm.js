@@ -89,7 +89,3 @@ export default function AddressForm() {
         </React.Fragment>
     );
 }
-
-function toUserInformation(){
-    window.location.assign(`http://localhost:3000/`);
-}

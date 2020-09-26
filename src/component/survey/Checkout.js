@@ -103,21 +103,12 @@ export default function Checkout() {
             var contact_number = document.getElementById("contact_number_inquiry").value;
             var city = document.getElementById("city_inquiry").value;
 
-            sessionStorage.setItem("firstName_inquiry",firstName);
-            sessionStorage.setItem("lastName_inquiry",lastName);
-            sessionStorage.setItem("age_inquiry",age);
-            sessionStorage.setItem("contact_number_inquiry",contact_number);
-            sessionStorage.setItem("city_inquiry",city);
-
+            sessionStorage.setItem("firstName_inquiry",JSON.stringify(firstName));
+            sessionStorage.setItem("lastName_inquiry",JSON.stringify(lastName));
+            sessionStorage.setItem("age_inquiry",JSON.stringify(age));
+            sessionStorage.setItem("contact_number_inquiry",JSON.stringify(contact_number));
+            sessionStorage.setItem("city_inquiry",JSON.stringify(city));
             sessionStorage.removeItem("symptom_value");
-
-            /*console.log("stage one:");
-            console.log(sessionStorage.getItem("firstName_inquiry"));
-            console.log(sessionStorage.getItem("lastName_inquiry"));
-            console.log(sessionStorage.getItem("age_inquiry"));
-            console.log(sessionStorage.getItem("gender_inquiry"));
-            console.log(sessionStorage.getItem("contact_number_inquiry"));
-            console.log(sessionStorage.getItem("city_inquiry"));*/
     }
         if(activeStep===1){
             if(!sessionStorage.getItem("symptom_value")){
@@ -135,12 +126,32 @@ export default function Checkout() {
             console.log("stage one & stage two:")
             console.log("stage one information:.....")
             console.log(sessionStorage.getItem("symptom_value"))
-        }
-        if(activeStep===3) {
-
+            sendResult()
         }
 
     };
+
+    const sendResult = () => {
+        axios.post("/survey-results", {
+                age: parseInt(JSON.parse(sessionStorage.getItem("age_inquiry"))),
+                // gender: JSON.parse(sessionStorage.getItem("gender_inquiry")),
+                gender: "male",
+                city: JSON.parse(sessionStorage.getItem("city_inquiry")),
+                contact: JSON.parse(sessionStorage.getItem("contact_number_inquiry")),
+                description: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                symptoms: JSON.parse(sessionStorage.getItem("symptom_value"))
+            },
+            {
+                headers: {
+                    Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
+                }
+            }).then(res => {
+            console.log(res);
+
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     const handleBack = () => {
         if(activeStep===1){
