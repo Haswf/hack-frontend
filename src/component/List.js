@@ -48,6 +48,8 @@ class List extends Component {
     discussions: [],
     listTitle: "Featured for members",
     listBreadcrumb: "Home / Articles",
+    items:[]
+    /*
     items: [
       {
         id: 0,
@@ -101,13 +103,27 @@ class List extends Component {
         person2_image:
           "https://images.unsplash.com/photo-1504703395950-b89145a5425b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d702cb99ca804bffcfa8820c46483264&auto=format&fit=crop&w=200&q=80"
       }
-    ]
+    ]*/
   };
 
   async componentDidMount() {
     const response = await axios.get("/discussions/", {});
-    console.log(response)
-    this.setState({discussions: response.data.data.discussions})
+    const discussions = response.data.data.discussions;
+    var items =[];
+    discussions.map(discussion => {
+      var item =[];
+      item["lastUser"] = discussion["author"].username;
+      console.log(discussion);
+      item["id"] = discussion["_id"];
+      item["textValue"] = discussion["title"];
+      item["hasActions"]= false;
+      item["daysAgo"] = getTime(discussion["createdAt"]);
+      items.push(item);
+    });
+    console.log(items);
+
+
+    this.setState({items: items})
   }
 
   reorderItems = (startIndex, endIndex) => {
@@ -151,13 +167,14 @@ class List extends Component {
                       index={key}
                     >
                       {(provided, snapshot) => (
+
                         <ListDragItem
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           order={key}
-                          button onClick={()=>toComment(key,items)}
-                        >
+                          button onClick={()=>toComment(number.id,items)}
+                         id={number.id}>
                           <ListItem
                             number={number}
                             dragging={snapshot.isDragging}
@@ -179,13 +196,39 @@ class List extends Component {
 }
 
 function toComment(id,items){
-  console.log(items);
-  //window.location.assign(`http://localhost:3000/comments`);
-  console.log(id);
-  if(id===1) {
-    console.log("!!!!!!!!!!!!!!!!!!");
-  }
+  items.map(item =>{
+    if(item.id===id){
+
+      //window.location.assign(`http://localhost:3000/comments`);
+      console.log(id);
+    }
+  });
+
 
 }
+function getTime(time2){
+  var myDate = new Date();
+  var time1;
+  if(myDate.getMonth()<10){
+    time1 = myDate.getFullYear()*10000+ (myDate.getMonth()+1)*100+ myDate.getDate();
+  }
+  else{
+    time1 = myDate.getFullYear()*1000+ (myDate.getMonth()+1)*100+ myDate.getDate();
+  }
+  var time_2 =0;
+  var num =1;
+  for(var i=9;i>=0;i--){
+      if(time2[i]!='-'){
+        time_2 += (parseInt(time2[i]))*num;
+        num = num*10;
+      }
+  }
+
+
+  return time1-time_2;
+}
+
+
+
 
 export default List;
