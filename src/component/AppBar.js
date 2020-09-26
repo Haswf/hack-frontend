@@ -178,13 +178,6 @@ const PrimarySearchAppBar = (props) => {
             </MenuItem>
         </Menu>
     );
-
-    function searching() {
-        if(window.sessionStorage.getItem("searching")){
-            lookup(window.sessionStorage.getItem("searching"));
-            window.sessionStorage.removeItem("searching");
-        }
-    }
     return (
         <div className={classes.grow}>
             <AppBar position="static">

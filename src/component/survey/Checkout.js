@@ -136,37 +136,42 @@ export default function Checkout() {
 
     const sendResult = async () => {
         try {
-            let response = await axios.post("/survey-results", {
-                    age: parseInt(JSON.parse(sessionStorage.getItem("age_inquiry"))),
-                    // gender: JSON.parse(sessionStorage.getItem("gender_inquiry")),
-                    gender: "male",
-                    city: JSON.parse(sessionStorage.getItem("city_inquiry")),
-                    contact: JSON.parse(sessionStorage.getItem("contact_number_inquiry")),
-                    description: JSON.parse(sessionStorage.getItem("des_inquiry")),
-                    symptoms: JSON.parse(sessionStorage.getItem("symptom_value"))
-                },
-                {
-                    headers: {
-                        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
-                    }
+            if (JSON.parse(localStorage.getItem("token")) === null) {
+                enqueueSnackbar("You need to login first", {
+                    variant: 'error'
                 });
-            enqueueSnackbar("Inquiry submitted", {
-                variant: 'success'
-            });
-            let discussionResponse = await axios.post("/discussions/", {
-                    message: JSON.parse(sessionStorage.getItem("des_inquiry")),
-                    title: JSON.parse(sessionStorage.getItem("des_inquiry")),
-                    surveyResultId: response.data.data.result["_id"]
-                },
-                {
-                    headers: {
-                        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
-                    }
+                return
+                let response = await axios.post("/survey-results", {
+                        age: parseInt(JSON.parse(sessionStorage.getItem("age_inquiry"))),
+                        // gender: JSON.parse(sessionStorage.getItem("gender_inquiry")),
+                        gender: "male",
+                        city: JSON.parse(sessionStorage.getItem("city_inquiry")),
+                        contact: JSON.parse(sessionStorage.getItem("contact_number_inquiry")),
+                        description: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                        symptoms: JSON.parse(sessionStorage.getItem("symptom_value"))
+                    },
+                    {
+                        headers: {
+                            Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
+                        }
+                    });
+                enqueueSnackbar("Inquiry submitted", {
+                    variant: 'success'
                 });
-            enqueueSnackbar("Discussion created", {
-                variant: 'success'
-            });
-
+                let discussionResponse = await axios.post("/discussions/", {
+                        message: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                        title: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                        surveyResultId: response.data.data.result["_id"]
+                    },
+                    {
+                        headers: {
+                            Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
+                        }
+                    });
+                enqueueSnackbar("Discussion created", {
+                    variant: 'success'
+                });
+            }
         }
 
         catch (e) {
