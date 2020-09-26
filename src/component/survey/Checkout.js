@@ -94,11 +94,14 @@ export default function Checkout() {
             var age = document.getElementById("age_inquiry").value;
             var contact_number = document.getElementById("contact_number_inquiry").value;
             var city = document.getElementById("city_inquiry").value;
+
             sessionStorage.setItem("firstName_inquiry",firstName);
             sessionStorage.setItem("lastName_inquiry",lastName);
             sessionStorage.setItem("age_inquiry",age);
             sessionStorage.setItem("contact_number_inquiry",contact_number);
             sessionStorage.setItem("city_inquiry",city);
+
+            sessionStorage.removeItem("symptom_value");
 
             /*console.log("stage one:");
             console.log(sessionStorage.getItem("firstName_inquiry"));

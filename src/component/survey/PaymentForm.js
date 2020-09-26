@@ -9,11 +9,7 @@ import Chip from "@material-ui/core/Chip";
 
 
 export default function PaymentForm() {
-    const [age, setAge] = React.useState('');
 
-    const handleChangeAge = (event) => {
-        setAge(event.target.value);
-    };
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
