@@ -18,13 +18,41 @@ export async function lookup(key) {
 
     );
 
-    const result = response.data.data;
-    console.log(result);
+    const result = JSON.stringify(response.data.data);
+    window.sessionStorage.setItem("searching", result);
+
+   window.location.assign("http://localhost:3000/searching");
+
+
     return result;
 
 }
 
+export function resetPassword(user) {
+  const {email, password, confirmed_password, username} = user;
 
+}
+export async function loginCheck(user) {
+  const {email, password} = user;
+  console.log("log in");
+  let response = await axios.post(
+      '/auth/login',
+      null,
+      {
+        params: {
+          email: email,
+          password: password,
+        }
+      }
+  );
+  const user_data = response.data.data;
+  localStorage.setItem('data', JSON.stringify(response.data.status));
+  //localStorage.setItem('user', JSON.stringify(user_data));
+  if(JSON.stringify(response.data.status) === '"success"'){
+     window.location.assign("http://localhost:3000/usercenter");
+  }
+  return user_data;
+}
 /*sign up check used to validate the input and let the user sign up*/
 export async function signupCheck(user) {
   const {email, password, confirmed_password, username} = user;
