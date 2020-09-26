@@ -94,6 +94,10 @@ function survey() {
     window.location.assign(`http://localhost:3000/survey`);
 }
 
+function signin() {
+    window.location.assign(`http://localhost:3000/login`);
+}
+
 export default function PrimarySearchAppBar() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -241,6 +245,15 @@ export default function PrimarySearchAppBar() {
                         onClick={() => survey()}
                     >
                         <DescriptionIcon />
+                    </IconButton>
+                    <IconButton
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={() => signin()}
+                    >
+                        <AccountCircle />
                     </IconButton>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>

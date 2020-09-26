@@ -10,6 +10,8 @@ import CommentExampleComment from "./pages/Discussion";
 import DiscussionList from "./pages/DiscussionList"
 import PrimarySearchAppBar from "./component/AppBar";
 import Survey from "./component/Survey";
+import SignInSide from "./pages/Login";
+import SignUpSide from "./pages/Signup";
 
 export default function App() {
   return (
@@ -27,7 +29,7 @@ export default function App() {
                   <Login />
               </Route>
               <Route path="/login">
-                  <Usercenter />
+                  <SignInSide />
               </Route>
               <Route path="/discussion">
                   <CommentExampleComment />
@@ -37,6 +39,9 @@ export default function App() {
               </Route>
               <Route path="/survey">
                   <Survey />
+              </Route>
+              <Route path="/signup">
+                  <SignUpSide />
               </Route>
           </Switch>
         </div>

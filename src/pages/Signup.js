@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignInSide() {
+export default function SignUpSide() {
     const classes = useStyles();
 
     return (
@@ -70,7 +70,7 @@ export default function SignInSide() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Sign up
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField
@@ -89,11 +89,33 @@ export default function SignInSide() {
                             margin="normal"
                             required
                             fullWidth
+                            name="username"
+                            label="username"
+                            type="username"
+                            id="username"
+                            autoComplete="username"
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
                             name="password"
                             label="Password"
                             type="password"
                             id="password"
-                            autoComplete="new-password"
+                            autoComplete="current-password"
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmpassword"
+                            label="confirm-password"
+                            type="confirmpassword"
+                            id="confirmpassword"
+                            autoComplete="confirm-password"
                         />
 
                         <Button
@@ -103,20 +125,8 @@ export default function SignInSide() {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="/signup" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
                         <Box mt={5}>
                             <Copyright />
                         </Box>
