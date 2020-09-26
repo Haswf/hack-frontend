@@ -5,6 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import GridContainer from "../../pages/Grid/GridContainer";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,8 +56,10 @@ export default function Review() {
                     <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"Gender:  " + sessionStorage.getItem("gender_inquiry")}</Typography>
                     <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"Contact Number:  " + sessionStorage.getItem("contact_number_inquiry")}</Typography>
                     <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{"City:    " + sessionStorage.getItem("city_inquiry")}</Typography>
+                    <Typography className={classes.personalinfo} variant="subtitle1" gutterBottom>{sessionStorage.getItem("des_inquiry")}</Typography>
                 </Grid>
             </Grid>
+
         </React.Fragment>
     );
 }
