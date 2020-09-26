@@ -11,7 +11,12 @@ import axios from "../../axios";
 
 export default function PaymentForm() {
     const [tags, setTags] = useState([]);
+    const [value, setValue] = React.useState();
 
+    const handleChange = (event) => {
+        setValue(event.target.value);
+        sessionStorage.setItem("des_inquiry",value)
+    };
     async function getSymptoms() {
         let response = await axios.get("/symptoms/", {});
         setTags(response.data.data.symptoms)
@@ -36,10 +41,21 @@ export default function PaymentForm() {
                         {...params}
                         variant="standard"
                         label="Symptom Tags"
-                        placeholder="Favorites"
+                        placeholder="Symptoms"
                     />
                 )}
             />
+            <p>&nbsp;</p>
+            <TextField
+                id="outlined-textarea"
+                label="Symptom Description"
+                multiline
+                fullWidth
+                rows={10}
+                value = {value}
+                onChange={handleChange}
+                placeholder="Please briefly describe your symptom"
+                ></TextField>
         </React.Fragment>
     );
 }
