@@ -113,7 +113,7 @@ export default function SignUpSide() {
                             fullWidth
                             name="confirmpassword"
                             label="confirm-password"
-                            type="confirmpassword"
+                            type="password"
                             id="confirmpassword"
                             autoComplete="confirm-password"
                         />
