@@ -13,6 +13,8 @@ import Survey from "./component/Survey";
 import SignInSide from "./pages/Login";
 import SignUpSide from "./pages/Signup";
 import Comments from "./component/Comments";
+import Checkout from "./component/survey/Checkout";
+import {SurveyPage} from "./component/survey/Symptom";
 
 export default function App() {
   return (
@@ -39,7 +41,7 @@ export default function App() {
                   <DiscussionList/>
               </Route>
               <Route path="/survey">
-                  <Survey />
+                  <Checkout />
               </Route>
               <Route path="/signup">
                   <SignUpSide />
@@ -47,6 +49,8 @@ export default function App() {
               <Route path="/comments">
                   <Comments />
               </Route>
+
+
           </Switch>
         </div>
       </Router>
