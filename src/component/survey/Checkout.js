@@ -15,6 +15,7 @@ import PaymentForm from './PaymentForm';
 import SurveyPage from './Symptom';
 import Review from './Review';
 import axios from '../../axios'
+import { useSnackbar } from 'notistack';
 
 function Copyright() {
     return (
@@ -82,6 +83,8 @@ function getStepContent(step) {
 }
 
 export default function Checkout() {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -131,26 +134,52 @@ export default function Checkout() {
 
     };
 
-    const sendResult = () => {
-        axios.post("/survey-results", {
-                age: parseInt(JSON.parse(sessionStorage.getItem("age_inquiry"))),
-                // gender: JSON.parse(sessionStorage.getItem("gender_inquiry")),
-                gender: "male",
-                city: JSON.parse(sessionStorage.getItem("city_inquiry")),
-                contact: JSON.parse(sessionStorage.getItem("contact_number_inquiry")),
-                description: JSON.parse(sessionStorage.getItem("des_inquiry")),
-                symptoms: JSON.parse(sessionStorage.getItem("symptom_value"))
-            },
-            {
-                headers: {
-                    Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
-                }
-            }).then(res => {
-            console.log(res);
+    const sendResult = async () => {
+        try {
+            let response = await axios.post("/survey-results", {
+                    age: parseInt(JSON.parse(sessionStorage.getItem("age_inquiry"))),
+                    // gender: JSON.parse(sessionStorage.getItem("gender_inquiry")),
+                    gender: "male",
+                    city: JSON.parse(sessionStorage.getItem("city_inquiry")),
+                    contact: JSON.parse(sessionStorage.getItem("contact_number_inquiry")),
+                    description: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                    symptoms: JSON.parse(sessionStorage.getItem("symptom_value"))
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
+                    }
+                });
+            enqueueSnackbar("Inquiry submitted", {
+                variant: 'success'
+            });
+            let discussionResponse = await axios.post("/discussions/", {
+                    message: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                    title: JSON.parse(sessionStorage.getItem("des_inquiry")),
+                    surveyResultId: response.data.data.result["_id"]
+                },
+                {
+                    headers: {
+                        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
+                    }
+                });
+            enqueueSnackbar("Discussion created", {
+                variant: 'success'
+            });
 
-        }).catch(err => {
-            console.log(err);
-        })
+        }
+
+        catch (e) {
+            enqueueSnackbar("Failed to submit inquiry" + e , {
+                variant: 'error'
+            });
+        }
+    }
+
+    const postDiscussion = () => {
+        // "message": "Renlord is my king",
+        //     "title": "I love renlord",
+        //     "surveyResultId": "5f6f5e01fa4eeaf96a34bf0d"
     }
 
     const handleBack = () => {
