@@ -46,7 +46,7 @@ const SignUp = function(props) {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const onSignUpHandler = async () => {
         try {
-            await axios.post("/users/", null, {
+            await axios.post("/users", null, {
                 params: {
                     username: userUserName,
                     email: userEmail,
