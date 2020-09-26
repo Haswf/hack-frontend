@@ -44,39 +44,64 @@ const ListDragItem = styled.div`
 `;
 
 class List extends Component {
-  state = {
-    listTags:JSON.parse(sessionStorage.getItem("tag_filter")),
-    discussions: [],
-    listTitle: "Featured for members",
-    listBreadcrumb: "Home / Articles",
-    items:[]
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      discussions: [],
+      listTitle: "Featured for members",
+      listBreadcrumb: "Home / Articles",
+      items:[],
+      selected: []
+    };
+
+    // This binding is necessary to make `this` work in the callback
+    this.updateSelected = this.updateSelected.bind(this);
+    this.mapToItem = this.mapToItem.bind(this);
+  }
+  updateSelected(newSelected) {
+    this.setState({...this.state,
+      selected: newSelected
+      })
+  }
 
 
   async componentDidMount() {
+    this.mapToItem();
+  }
+
+  async componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.selected !== this.state.selected) {
+      this.mapToItem();
+    }
+  }
+
+  async mapToItem() {
     const response = await axios.get("/discussions/", {});
     const discussions = response.data.data.discussions;
     var items =[];
     discussions.map(discussion => {
-      var item =[];
-      console.log(discussion);
-      item["lastUser"] = discussion["author"]["username"];
-      item["id"] = discussion["_id"];
-      item["textValue"] = discussion["title"];
-      item["hasActions"]= false;
-      item["daysAgo"] = getTime(discussion["createdAt"]);
-      items.push(item);
+      const tags = discussion.surveyResultId.symptoms.map(s => {
+        return s["_id"];
+      })
+      for (let i=0; i<tags.length; i++) {
+        if (this.state.selected.includes(tags[i])) {
+          items.push({
+            lastUser: discussion["author"]["username"],
+            id: discussion["_id"],
+            textValue: discussion["title"],
+            hasActions: false,
+            daysAgo: getTime(discussion["createdAt"])
+
+          });
+          break;
+        }
+      }
+
     });
-    console.log(items);
-
-
     this.setState({items: items})
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(this.state);
-
-  }
 
   reorderItems = (startIndex, endIndex) => {
     const items = Array.from(this.state.items);
@@ -103,7 +128,7 @@ class List extends Component {
     const { listTitle, listBreadcrumb, items } = this.state;
     return (
       <div>
-        <Chips/>
+        <Chips selected={this.state.selected} onChange={this.updateSelected}/>
       <ThemeProvider theme={theme}>
         <ListWrapper>
           <ListTitle>{listTitle}</ListTitle>

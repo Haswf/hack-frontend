@@ -7,6 +7,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import axios from '../axios';
 import ReactChip from 'react-chip'
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import {instanceOf} from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,10 +20,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Chips() {
+export default function Chips(props) {
     const classes = useStyles();
-    const [tags, setTags] = useState([]);
-    const [selected, setSelected] = useState([]);
+    const selected = props.selected;
+
+    const [tags, setTags] = useState()
+
     async function getSymptoms() {
         let response = await axios.get("/symptoms/", {});
         setTags(response.data.data.symptoms)
@@ -32,30 +35,23 @@ export default function Chips() {
 
 
     const handleDelete = (tag) => {
-        const newSelected = selected.filter(e=>{return e!==tag._id})
-        setSelected(newSelected)
-        sessionStorage.setItem("tag_filter",JSON.stringify(selected))
-        console.log(sessionStorage.getItem("tag_filter"))
-
+        const newSelected = props.selected.filter(e=>{return e!==tag._id})
+        props.onChange(newSelected)
     };
 
     const handleClick = (tag) => {
         const newSelected = [...selected,tag._id]
-        if(!selected.includes(tag._id)) {
-            setSelected(newSelected)
+        if(!props.selected.includes(tag._id)) {
+            props.onChange(newSelected)
         }
-
-        sessionStorage.setItem("tag_filter",JSON.stringify(selected))
-        console.log(sessionStorage.getItem("tag_filter"))
-
     };
 
     let tagComponents = null;
     let current_color = "default"
     if (tags !== undefined && tags.length > 0) {
         tagComponents = tags.map(tag => {
-            let enabled =selected.includes(tag._id)
-            if (selected.includes(tag._id)){
+            let enabled = props.selected.includes(tag._id)
+            if (props.selected.includes(tag._id)){
                 current_color = "primary"
             } else {
                 current_color = "default"
