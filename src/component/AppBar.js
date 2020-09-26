@@ -178,13 +178,6 @@ const PrimarySearchAppBar = (props) => {
             </MenuItem>
         </Menu>
     );
-
-    function searching() {
-        if(window.sessionStorage.getItem("searching")){
-            lookup(window.sessionStorage.getItem("searching"));
-            window.sessionStorage.removeItem("searching");
-        }
-    }
     return (
         <div className={classes.grow}>
             <AppBar position="static">
@@ -267,7 +260,7 @@ const PrimarySearchAppBar = (props) => {
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={() => {props.history.push("/login")}}
+                            onClick={() => {props.history.push("/usercenter")}}
                             color="inherit"
                         >
                             <AccountCircle />
