@@ -10,7 +10,10 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
-import {commentDis} from "../api";
+import axios from "../axios"
+import { useSnackbar } from 'notistack';
+import { withRouter } from "react-router";
+
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -50,9 +53,35 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FormDialog() {
+
+const FormDialog = (props) => {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [content, setContent] = React.useState("");
+
+    const submitComment = async () => {
+        try {
+            axios.post("/replies/", {
+                message: content,
+                parentId: props.parentId,
+                discussionId : props.discussionId
+            }, {
+                headers: {
+                    Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")).replace(/['"]+/g, '')
+                }
+            })
+            enqueueSnackbar("Comment submitted" , {
+                variant: 'success'
+            });
+        } catch (e) {
+            enqueueSnackbar("Submit failed: "+e.message , {
+                variant: 'error'
+            });
+        }
+
+    }
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -75,16 +104,18 @@ export default function FormDialog() {
                     <DialogContentText>
                         Share your wisdom and professional knowledge to help our patients!
                     </DialogContentText>
-                    <textarea rows = "5" cols = "60" id="review">
-
-                    </textarea>
+                    <textarea
+                        rows = "5"
+                        cols = "60"
+                        id="review"
+                        onChange={(e => setContent(e.target.value))} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={()=>{
-                        submitRating()
+                        submitComment()
                         handleClose()
                     }} color="primary">
                         Save
@@ -94,24 +125,4 @@ export default function FormDialog() {
         </div>
     );
 }
-
-function submitRating() {
-    var name = sessionStorage.getItem("username")
-    var review = document.getElementById("review")
-    console.log(name)
-    console.log(review.value)
-    let username;
-    username = window.location.pathname;
-    let index;
-    index = username.lastIndexOf('/');
-    username = username.slice(index+1);
-    console.log("11111111111111")
-    console.log(username)
-
-    commentDis({
-        username: username,
-        name: name,
-        comment: review.value,
-    });
-
-}
+export default withRouter(FormDialog);
