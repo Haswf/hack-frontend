@@ -99,13 +99,13 @@ h1 {
 /*  color: #88b68a;*/
 /*}}*/
 
-{h3 {
+h3 {
   font-family: "Andale Mono";
   position: relative;
   width: 100%;
   font-size: 150%;
   margin-bottom: 15%;
-}}
+}
 
 h4 {
   text-align: center;
