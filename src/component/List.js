@@ -167,16 +167,16 @@ class List extends Component {
       <div>
         <Chips/>
       <ThemeProvider theme={theme}>
-        <ListWrapper button onClick={() => toComment()}>
+        <ListWrapper>
           <ListTitle>{listTitle}</ListTitle>
-          <ListBreadcrumb>{listBreadcrumb}</ListBreadcrumb>
+          <ListBreadcrumb >{listBreadcrumb}</ListBreadcrumb>
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppabe-list" >
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
                   {items.map((number, key) => (
                     <Draggable
-                      draggableId={`draggable-${number.id}`}
+
                       key={key}
                       index={key}
                     >
@@ -186,6 +186,7 @@ class List extends Component {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           order={key}
+                          button onClick={()=>toComment(key,items)}
                         >
                           <ListItem
                             number={number}
@@ -207,8 +208,14 @@ class List extends Component {
   }
 }
 
-function toComment(){
-  window.location.assign(`http://localhost:3000/comments`);
+function toComment(id,items){
+  console.log(items);
+  //window.location.assign(`http://localhost:3000/comments`);
+  console.log(id);
+  if(id===1) {
+    console.log("!!!!!!!!!!!!!!!!!!");
+  }
+
 }
 
 export default List;
