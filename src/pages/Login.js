@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import {loginCheck} from "../api";
 
 function Copyright() {
     return (
@@ -56,6 +57,16 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
+
+function sign_in() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value
+    loginCheck({
+        email,
+        password,
+    });
+    //window.sessionStorage.setItem("email", document.getElementById("email").value);
+}
 
 export default function SignInSide() {
     const classes = useStyles();
@@ -102,6 +113,7 @@ export default function SignInSide() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={() => sign_in()}
                         >
                             Sign In
                         </Button>

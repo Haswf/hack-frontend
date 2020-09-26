@@ -17,6 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import HomeIcon from '@material-ui/icons/Home';
 import ForumIcon from '@material-ui/icons/Forum';
 import DescriptionIcon from '@material-ui/icons/Description';
+import {lookup} from "../api";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -182,7 +183,9 @@ export default function PrimarySearchAppBar() {
 
     function searching() {
         if(window.sessionStorage.getItem("searching")){
-            console.log(window.sessionStorage.getItem("searching"))
+            //console.log(window.sessionStorage.getItem("searching"))
+            lookup(window.sessionStorage.getItem("searching"));
+            window.sessionStorage.removeItem("searching");
         }
     }
     const onChange = (event) => {

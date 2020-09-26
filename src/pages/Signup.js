@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import {loginCheck, signupCheck} from "../api";
 
 function Copyright() {
     return (
@@ -57,6 +58,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function sign_up() {
+    var email = document.getElementById("email_signup").value;
+    var password = document.getElementById("password_signup").value;
+    var confirmed_password = document.getElementById("confirmpassword_signup").value;
+    var username = document.getElementById("username_signup").value;;
+    signupCheck({
+        email,
+        password,
+        confirmed_password,
+        username
+    });
+}
+
 export default function SignUpSide() {
     const classes = useStyles();
 
@@ -78,7 +92,7 @@ export default function SignUpSide() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
+                            id="email_signup"
                             label="Email Address"
                             name="email"
                             autoComplete="email"
@@ -92,7 +106,7 @@ export default function SignUpSide() {
                             name="username"
                             label="username"
                             type="username"
-                            id="username"
+                            id="username_signup"
                             autoComplete="username"
                         />
                         <TextField
@@ -103,7 +117,7 @@ export default function SignUpSide() {
                             name="password"
                             label="Password"
                             type="password"
-                            id="password"
+                            id="password_signup"
                             autoComplete="current-password"
                         />
                         <TextField
@@ -114,7 +128,7 @@ export default function SignUpSide() {
                             name="confirmpassword"
                             label="confirm-password"
                             type="confirmpassword"
-                            id="confirmpassword"
+                            id="confirmpassword_signup"
                             autoComplete="confirm-password"
                         />
 
@@ -124,6 +138,7 @@ export default function SignUpSide() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={() => sign_up()}
                         >
                             Sign Up
                         </Button>
