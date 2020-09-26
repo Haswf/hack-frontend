@@ -267,7 +267,7 @@ const PrimarySearchAppBar = (props) => {
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={() => {props.history.push("/login")}}
+                            onClick={() => {localStorage.getItem("data")? props.history.push("/login"):props.history.push("/usercenter")}}
                             color="inherit"
                         >
                             <AccountCircle />
