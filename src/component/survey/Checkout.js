@@ -86,6 +86,7 @@ export default function Checkout() {
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
+        console.log(activeStep)
         setActiveStep(activeStep + 1);
     };
 

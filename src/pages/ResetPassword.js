@@ -62,7 +62,7 @@ function reset() {
     var email = document.getElementById("email_reset").value;
     var password = document.getElementById("password_reset").value;
     var confirmed_password = document.getElementById("confirmpassword_reset").value;
-    var username = document.getElementById("username_reset").value;;
+    var username = document.getElementById("username_reset").value;
     resetPassword({
         email,
         password,

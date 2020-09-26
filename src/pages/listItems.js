@@ -14,6 +14,7 @@ import ResumeIcon from '@material-ui/icons/AccountBox';
 import PortfolioIcon from '@material-ui/icons/Collections';
 import BookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
+import LogoutButton from "../component/LogoutButton";
 //import UpdateProfileButton from "../Button/UpdateProfileButton";
 //import LogoutButton from "../Button/LogoutButton";
 //import { useAuth0} from "@auth0/auth0-react";
@@ -22,12 +23,6 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 
 export const mainListItems = (
     <div>
-        <ListItem button onClick={() => toUserInformation()}>
-            <ListItemIcon>
-                <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary="User Information" />
-        </ListItem>
         <ListItem button onClick={() => toResume()}>
             <ListItemIcon>
                 <ResumeIcon />
@@ -46,18 +41,14 @@ export const secondaryListItems = (
             </ListItemIcon>
             <ListItemText primary="Reset Password" />
         </ListItem>
-        <ListItem button>
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Log out" />
-        </ListItem>
+        <LogoutButton/>
     </div>
 );
 
 /*export const thirdListItems = (
    "1"
 );*/
+
 
 function toPortfolioCollections(){
     window.location.assign(`http://localhost:3000/portfoliocollections`);
@@ -71,3 +62,7 @@ function toUserInformation(){
     window.location.assign(`http://localhost:3000/usercenter`);
 }
 
+export function toReset() {
+    window.location.assign("https://localhost:3000/resetPassword")
+}
+/*to the list page*/

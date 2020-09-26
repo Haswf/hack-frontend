@@ -7,7 +7,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Chip from "@material-ui/core/Chip";
 
+
 export default function PaymentForm() {
+    const [age, setAge] = React.useState('');
+
+    const handleChangeAge = (event) => {
+        setAge(event.target.value);
+    };
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -15,6 +21,7 @@ export default function PaymentForm() {
             </Typography>
             <Grid>add your symptom tags</Grid>
             <Autocomplete
+                onChange={(event, value) => sessionStorage.setItem("value",JSON.stringify(value))}
                 multiple
                 id="tags-standard"
                 options={symptomsTags}
@@ -22,12 +29,14 @@ export default function PaymentForm() {
                 renderInput={(params) => (
                     <TextField
                         {...params}
+
                         variant="standard"
                         label="Symptom Tags"
                         placeholder="Favorites"
                     />
                 )}
             />
+            <button onClick={()=>save()}>save</button>
 
 
 
@@ -52,4 +61,9 @@ const symptomsTags = [
     { title: 'Discolouration of Fingers or Toes', year: 2010 },
     { title: 'Chest Pain or Pressure', year: 2002 },
 ];
+console.log(document.getElementById("symptoms"))
 
+function save(){
+    console.log(sessionStorage.getItem("value"))
+    console.log(1);
+}
