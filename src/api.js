@@ -42,7 +42,11 @@ export async function loginCheck(user) {
       }
   );
   const user_data = response.data.data;
+  localStorage.setItem('data', JSON.stringify(response.data.status));
   localStorage.setItem('user', JSON.stringify(user_data));
+  if(JSON.stringify(response.data.status) === '"success"'){
+     window.location.assign("http://localhost:3000/usercenter");
+  }
   return user_data;
 }
 

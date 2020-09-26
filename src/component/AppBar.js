@@ -96,7 +96,7 @@ function survey() {
 }
 
 function signin() {
-    window.location.assign(`http://localhost:3000/login`);
+    window.location.assign(`http://localhost:3000/usercenter`);
 }
 
 export default function PrimarySearchAppBar() {

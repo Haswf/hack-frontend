@@ -149,10 +149,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Usercenter() {
-    /*if(!window.localStorage.getItem("access_token")){
+
+    if(!window.localStorage.getItem("user") || window.localStorage.getItem("data") != '"success"'){
 
         window.location.assign("http://localhost:3000/login")
-    }*/
+    }
 
     let username;
     username = window.location.pathname;

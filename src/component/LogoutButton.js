@@ -36,7 +36,7 @@ export default function LogoutButton(){
 }
 
 function clearStorage() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expires_at");
+    window.localStorage.removeItem("user");
+    window.localStorage.removeItem("data");
+    window.location.assign("http://localhost:3000");
 }
