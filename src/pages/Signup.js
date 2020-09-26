@@ -54,6 +54,10 @@ const SignUp = function(props) {
                 }
             });
             props.history.replace({pathname: "/login"})
+            enqueueSnackbar("Signup succeed" , {
+                variant: 'success'
+            });
+            setSignupFailed(false);
         }
         catch (error) {
             enqueueSnackbar("Signup failed: "+error.message , {
