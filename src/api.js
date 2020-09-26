@@ -4,26 +4,24 @@ import axios from "./axios";
 const BASE_URL = "https://healthnextdoortest.herokuapp.com";
 
 /*login check used to validate the input with data from the database and let the user log in*/
-export function lookup(key) {
-    console.log(key);
-    //const endpoint = BASE_URL + `/login`;
-    /*
-    return fetch(endpoint, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username,
-            password
-        })
-    }).then(res =>{
-        if(res.ok){
-            //store current login status
-        }
-        else{
-        }
-    });*/
+export async function lookup(key) {
+    //console.log(key);
+    //const endpoint = BASE_URL + `/api/search`;
+    let response = await axios.post(
+        "/search/",
+        null,
+        {params: {
+            query: key,
+            page: "0",
+            limit: "100",
+          }}
+
+    );
+
+    const result = response.data.data;
+    console.log(result);
+    return result;
+
 }
 
 export function resetPassword(user) {
@@ -49,7 +47,7 @@ export async function loginCheck(user) {
 }
 
 /*sign up check used to validate the input and let the user sign up*/
-export function signupCheck(user) {
+export async function signupCheck(user) {
   const {email, password, confirmed_password, username} = user;
   if (username === "") {
     alert("please input a username!");
@@ -71,6 +69,19 @@ export function signupCheck(user) {
   console.log(password);
   console.log(confirmed_password);
   console.log(username);
+  let response = await axios.post(
+      '/users',
+      null,
+      {params:{
+        email:email,
+        password: password,
+        username: username,
+        }}
+  );
+  const datacode = response.statusCode();
+  window.sessionStorage.setItem("code", datacode);
+  console.log(datacode);
+  //localStorage.setItem('user', JSON.stringify())
   /*
   const endpoint = BASE_URL + `/signup`;
   return fetch(endpoint, {

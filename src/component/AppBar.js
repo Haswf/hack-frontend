@@ -183,7 +183,6 @@ export default function PrimarySearchAppBar() {
 
     function searching() {
         if(window.sessionStorage.getItem("searching")){
-            //console.log(window.sessionStorage.getItem("searching"))
             lookup(window.sessionStorage.getItem("searching"));
             window.sessionStorage.removeItem("searching");
         }
