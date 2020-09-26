@@ -39,8 +39,8 @@ export default function Review() {
             </Typography>
             <List disablePadding>
                 {symptoms.map((symptom) => (
-                    <ListItem className={classes.listItem} key={symptom.title}>
-                        {symptom.title}
+                    <ListItem className={classes.listItem} key={symptom.name}>
+                        {symptom.name}
                     </ListItem>
                 ))}
             </List>
