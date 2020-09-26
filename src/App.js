@@ -12,6 +12,7 @@ import PrimarySearchAppBar from "./component/AppBar";
 import Survey from "./component/Survey";
 import SignInSide from "./pages/Login";
 import SignUpSide from "./pages/Signup";
+import Comments from "./component/Comments";
 
 export default function App() {
   return (
@@ -42,6 +43,9 @@ export default function App() {
               </Route>
               <Route path="/signup">
                   <SignUpSide />
+              </Route>
+              <Route path="/comments">
+                  <Comments />
               </Route>
           </Switch>
         </div>
