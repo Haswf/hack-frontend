@@ -17,7 +17,7 @@ import Box from "@material-ui/core/Box";
 const styles = theme => ({
     root: {
         width: "100%",
-        maxWidth: 3600,
+        maxWidth: 500,
         backgroundColor: theme.palette.background.paper,
         marginLeft: 100
     },
