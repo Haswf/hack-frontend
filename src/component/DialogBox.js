@@ -82,11 +82,27 @@ export default function FormDialog() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={()=>{
+                        submitRating()
+                        handleClose()
+                    }} color="primary">
                         Save
                     </Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
+}
+
+function submitRating() {
+    var name = sessionStorage.getItem("username")
+    var review = document.getElementById("review")
+    console.log(name)
+    console.log(review.value)
+    let username;
+    username = window.location.pathname;
+    let index;
+    index = username.lastIndexOf('/');
+    username = username.slice(index+1);
+
 }

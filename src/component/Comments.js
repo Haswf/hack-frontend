@@ -244,7 +244,7 @@ class AlignItemsList extends React.Component {
 
                     </Box>
                 </Container>
-                <Typography>
+                <Typography variant="h3">
                     {this.state.discussion.title}
                 </Typography>
                 <DialogBox />
