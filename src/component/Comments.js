@@ -14,6 +14,9 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import axios from "../axios";
+import {Dialog} from "@material-ui/core";
+import DialogBox from "./DialogBox";
+
 
 const styles = theme => ({
     root: {
@@ -225,7 +228,9 @@ class AlignItemsList extends React.Component {
                         {/* Chart */}
                         <Grid item xs={12} md={8} lg={9}>
                             <Paper >
-
+                                <p></p>
+                                <p></p>
+                                <p></p>
                             </Paper>
 
                         </Grid>
@@ -242,6 +247,7 @@ class AlignItemsList extends React.Component {
                 <Typography>
                     {this.state.discussion.title}
                 </Typography>
+                <DialogBox />
                 <List className={classes.root}>
                     {this.state.discussion.replies.map(reply => {
                             return <ListItem alignItems="flex-start" key={reply.id}>
