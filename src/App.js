@@ -11,7 +11,10 @@ import SignUpSide from "./pages/Signup";
 import Comments from "./component/Comments";
 import Checkout from "./component/survey/Checkout";
 import Dis from "./component/dis";
+
 import { SnackbarProvider } from 'notistack';
+import ResetPassword from "./pages/ResetPassword";
+import SearchingList from "./pages/Searching";
 
 export default function App() {
   return (
@@ -28,6 +31,9 @@ export default function App() {
               <Route exact path="/survey" component={Checkout} />
               <Route exact path="/signup" component={SignUpSide} />
               <Route exact path="/discussions/:id" component={Comments} />
+              <Route path="/survey" component={Checkout} />
+              <Route path="/signup" component={SignUpSide} />
+              <Route path="/discussions/:id" component={Comments} />
           </Switch>
         </div>
       </Router>

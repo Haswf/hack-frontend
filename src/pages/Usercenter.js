@@ -23,6 +23,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import {mainListItems, secondaryListItems, thirdListItems} from './listItems';
 import Avatar from "@material-ui/core/Avatar";
 import {useUser} from "../api";
+import UsercenterList from "../component/UsercenterList";
 //import UpdateProfileButton from "../Button/UpdateProfileButton";
 //import jwt_decode from "jwt-decode";
 //import Upload from "../Upload";
@@ -150,17 +151,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Usercenter() {
 
-    if(!window.localStorage.getItem("user") || window.localStorage.getItem("data") != '"success"'){
+    if(!window.localStorage.getItem("user")){
 
         window.location.assign("http://localhost:3000/login")
     }
-
-    let username;
-    username = window.location.pathname;
-    let index;
-    index = username.lastIndexOf('/');
-    let userid;
-    userid = username.slice(index+1);
+    var userid = window.localStorage.getItem("user");
+    console.log(JSON.parse(userid)["_id"]);
+    window.sessionStorage.setItem("_id", JSON.parse(userid)["_id"]);
 
     var remaining = 0;
     var user_token = localStorage.getItem("id_token");
@@ -264,28 +261,7 @@ export default function Usercenter() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        {/* Chart */}
-
-
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-                            {/*<Paper className={fixedHeightPaperImage}>*/}
-                            {/*    <p>*/}
-                            {/*        <IconButton color="inherit">*/}
-                            {/*        <Avatar className={classes.imagePosition} alt="" src={image} className={classes.large}/>*/}
-                            {/*        </IconButton>*/}
-                            {/*    </p>*/}
-                            <div className={classes.buttonBottom}>
-
-                            </div>
-                            {/*</Paper>*/}
-                        </Grid>
-                        {/* Recent Orders */}
-                        <Grid item xs={12}>
-
-                        </Grid>
-                    </Grid>
+                    <UsercenterList />
                     <Box pt={4} className={classes.buttonBottom}>
                         <Copyright />
                     </Box>
