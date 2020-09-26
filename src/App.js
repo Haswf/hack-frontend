@@ -29,7 +29,7 @@ export default function App() {
                <PatientList />
             </Route>
               <Route path="/usercenter">
-                  <Login />
+                  <Usercenter />
               </Route>
               <Route path="/login">
                   <SignInSide />
