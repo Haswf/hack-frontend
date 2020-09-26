@@ -49,7 +49,7 @@ export async function loginCheck(user) {
 }
 
 /*sign up check used to validate the input and let the user sign up*/
-export function signupCheck(user) {
+export async function signupCheck(user) {
   const {email, password, confirmed_password, username} = user;
   if (username === "") {
     alert("please input a username!");
@@ -71,6 +71,18 @@ export function signupCheck(user) {
   console.log(password);
   console.log(confirmed_password);
   console.log(username);
+  let response = await axios.post(
+      '/users/',
+      null,
+      {params:{
+        email:email,
+        password: password,
+        username: username,
+        }}
+  );
+  const datacode = response.statusCode();
+  console.log(datacode);
+  //localStorage.setItem('user', JSON.stringify())
   /*
   const endpoint = BASE_URL + `/signup`;
   return fetch(endpoint, {

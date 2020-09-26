@@ -19,8 +19,7 @@
     "react-test-renderer": "0.0.0-33c3af284",
     "serve": "^11.3.2",
     "styled-components": "latest",
-    "surveyjs-widgets": "^1.8.4",
-    "react-redux": "latest"
+    "surveyjs-widgets": "^1.8.4"
   },
   "devDependencies": {
     "@material-ui/core": "^4.11.0",
