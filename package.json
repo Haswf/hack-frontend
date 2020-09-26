@@ -22,7 +22,6 @@
     "styled-components": "latest",
     "surveyjs-widgets": "^1.8.4",
     "prop-types": "latest",
-    "prop-types": "latest",
     "classnames": "latest"
   },
   "devDependencies": {
