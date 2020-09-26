@@ -164,6 +164,8 @@ class List extends Component {
   render() {
     const { listTitle, listBreadcrumb, items } = this.state;
     return (
+      <div>
+        <Chips/>
       <ThemeProvider theme={theme}>
         <ListWrapper button onClick={() => toComment()}>
           <ListTitle>{listTitle}</ListTitle>
@@ -200,6 +202,7 @@ class List extends Component {
           </DragDropContext>
         </ListWrapper>
       </ThemeProvider>
+        </div>
     );
   }
 }
