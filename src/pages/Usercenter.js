@@ -24,6 +24,7 @@ import axios from "../axios";
 import {useSnackbar} from "notistack";
 import CardContent from "@material-ui/core/CardContent";
 import Card from "@material-ui/core/Card";
+import LogoutButton from "../component/LogoutButton";
 
 const drawerWidth = 250;
 
@@ -191,7 +192,6 @@ const UserCenter = (props) => {
                     <IconButton color="inherit" onClick={() => {props.history.push("/")}}>
                         <HomeIcon />
                     </IconButton>
-
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         User Center
                     </Typography>
@@ -203,6 +203,7 @@ const UserCenter = (props) => {
                     <IconButton color="inherit">
                         <Avatar alt="/static/images/avatar/1.jpg" src={""} />
                     </IconButton>
+
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -220,6 +221,7 @@ const UserCenter = (props) => {
                 </div>
                 <Divider />
                 <List>{mainListItems}</List>
+                <LogoutButton/>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
