@@ -1,6 +1,6 @@
 # PANDEMICHAT
 
-This is the finalized version of our project. We are team HealthNextDoor,
+This is the finalized version of our project. We are team GuardiansOfBestSunniness,
  and we would like to solve the problem "how might we better support patients 
  as they are hard to see a doctor in this difficult situation". We would like to use 
  this website to help patient with any symptoms.
@@ -28,27 +28,28 @@ This is the finalized version of our project. We are team HealthNextDoor,
     
     
     
- 2. Discussion Board
+ 2 Discussion Board For Patient
             
        
-    For Patient
         a. When you click into an existed post listing in the discussion page,
            you will see the information in detail of that post. And you can reply
            to post if you think you can offer some help to the author.
            
         b. If you are sick, you can creat your own post so the doctor will offer you some medical instruction.
     
-    For Docter
-        a. you may reply to the cunrrent post so the patients can know what they should do in that particular situation. 
      
-     
- 3. Medical Survey
+ 3. Discussion Board For Doctor
  
-        a. filling up the survey would help the doctor to understand your symptoms better,
-            you can use the symptoms' tag to spcify your symptom.
+        a. you may reply to the cunrrent post so the patients can know what they should do in that particular situation. 
     
-     e.g. fill up the survey with your personal information and symptoms' description
      
+ 4. Medical Survey
+  
+         a. filling up the survey would help the doctor to understand your symptoms better,
+             you can use the symptoms' tag to spcify your symptom.
+     
+      e.g. fill up the survey with your personal information and symptoms' description
+      
 ### Set Up
 
     Please cd into the repo first. Then install dependencies.
