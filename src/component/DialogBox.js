@@ -62,6 +62,12 @@ const FormDialog = (props) => {
 
     const submitComment = async () => {
         try {
+            if (JSON.parse(localStorage.getItem("token")) === null) {
+                enqueueSnackbar("You need to login first" , {
+                    variant: 'error'
+                });
+                return
+            }
             axios.post("/replies/", {
                 message: content,
                 parentId: props.parentId,

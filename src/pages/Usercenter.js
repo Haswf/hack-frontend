@@ -12,34 +12,19 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import HomeIcon from '@material-ui/icons/Home';
-import {mainListItems, secondaryListItems, thirdListItems} from './listItems';
+import mainListItems from './listItems';
 import Avatar from "@material-ui/core/Avatar";
-import {useUser} from "../api";
-import UsercenterList from "../component/UsercenterList";
-//import UpdateProfileButton from "../Button/UpdateProfileButton";
-//import jwt_decode from "jwt-decode";
-//import Upload from "../Upload";
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="http://localhost:3000/usercenter">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import {withRouter} from "react-router";
+import Copyright from "../component/Copyright"
+import axios from "../axios";
+import {useSnackbar} from "notistack";
+import CardContent from "@material-ui/core/CardContent";
+import Card from "@material-ui/core/Card";
+import LogoutButton from "../component/LogoutButton";
 
 const drawerWidth = 250;
 
@@ -149,27 +134,38 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Usercenter() {
-
-    if(!window.localStorage.getItem("user")){
-
-        window.location.assign("http://localhost:3000/login")
-    }
-    var userid = window.localStorage.getItem("user");
-    console.log(JSON.parse(userid)["_id"]);
-    window.sessionStorage.setItem("_id", JSON.parse(userid)["_id"]);
-
-    var remaining = 0;
-    var user_token = localStorage.getItem("id_token");
-    //var user_sub = jwt_decode(user_token).sub;
-    //console.log(jwt_decode(user_token))
-
-    // getUserAndCreat(window.sessionStorage.getItem("usersub"));
-    //getUserAndCreat(user_sub);
-
-
+const UserCenter = (props) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+    const [history, setHistory] = React.useState([]);
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+    if(!localStorage.getItem("user")){
+        props.history.push("/login");
+    }
+
+    const getHistory = async () => {
+        try {
+            let response = await axios.get("/discussions/own", null
+            , {
+                headers: {
+                    Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")).replace(/['"]+/g, '')                }
+            })
+            enqueueSnackbar("History retrieved" , {
+                variant: 'success'
+            });
+            setHistory(response.data.data.discussions);
+        } catch (e) {
+            enqueueSnackbar("Fail to retrieve history" , {
+                variant: 'error'
+            });
+        }
+    }
+
+    React.useEffect(() => {
+        getHistory();
+    }, [])
+
     const handleDrawerOpen = () => {
         setOpen(true);
 
@@ -177,35 +173,6 @@ export default function Usercenter() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    const fixedHeightPaperImage = clsx(classes.paper, classes.fixedHeightImage);
-
-
-    const { loading, users, error } = useUser();
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-    if (error) {
-        return <p>Something went wrong: {error.message}</p>;
-    }
-    let first_name;
-    let last_name;
-    let introduction;
-    let gender;
-    let age;
-    let image;
-    /*{users.map(user => {
-        if(user.userid===""){
-            first_name = user.first_name;
-            console.log(first_name);
-            console.log(user.userid);
-            last_name  = user.last_name;
-            introduction = user.introduction;
-            gender = user.gender;
-            age = user.age;
-            image = user.image;
-        }})}*/
-    //console.log(first_name);
 
     return (
         <div className={classes.root}>
@@ -222,10 +189,9 @@ export default function Usercenter() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <IconButton color="inherit" onClick={() => backHomePage()}>
+                    <IconButton color="inherit" onClick={() => {props.history.push("/")}}>
                         <HomeIcon />
                     </IconButton>
-
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         User Center
                     </Typography>
@@ -235,8 +201,9 @@ export default function Usercenter() {
                         </Badge>
                     </IconButton>
                     <IconButton color="inherit">
-                        <Avatar alt="/static/images/avatar/1.jpg" src={image} />
+                        <Avatar alt="/static/images/avatar/1.jpg" src={""} />
                     </IconButton>
+
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -254,14 +221,23 @@ export default function Usercenter() {
                 </div>
                 <Divider />
                 <List>{mainListItems}</List>
-                <Divider />
-                <List>{secondaryListItems}</List><Divider />
-
+                <LogoutButton/>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <UsercenterList />
+                    {history.map(e => {
+                        return <Card>
+                            <CardContent>
+                                <Typography color="textSecondary" gutterBottom>
+                                    {e.title}
+                                </Typography>
+                                <Typography variant="body2" component="h2">
+                                    {e.description}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    })}
                     <Box pt={4} className={classes.buttonBottom}>
                         <Copyright />
                     </Box>
@@ -272,8 +248,4 @@ export default function Usercenter() {
     );
 }
 
-function backHomePage(){
-    window.location.assign(`http://localhost:3000/`);
-}
-
-
+export default withRouter(UserCenter);
